@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_ll_tab"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="16dp"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <cn.hujw.widget.round.RoundTextView
+        android:id="@+id/item_tv_tab"
+        android:layout_width="5dp"
+        android:layout_height="20dp"
+        app:rv_cornerRadius="5dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:rv_backgroundColor="@color/colorAccent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_tv_name"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:text="@string/app_name"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
