@@ -77,6 +77,13 @@
             android:label="@string/system_article"
             android:screenOrientation="portrait" />
 
+
+        <!-- 搜索 -->
+        <activity
+            android:name=".ui.activity.SearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
         <!-- 浏览器 -->
         <activity
             android:name=".ui.activity.WebActivity"

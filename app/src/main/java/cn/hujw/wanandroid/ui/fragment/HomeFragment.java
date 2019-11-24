@@ -3,19 +3,17 @@ package cn.hujw.wanandroid.ui.fragment;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.image.ImageLoader;
@@ -25,6 +23,7 @@ import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.NavigationActivity;
+import cn.hujw.wanandroid.ui.activity.SearchActivity;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
 import cn.hujw.wanandroid.ui.adapter.ArticleAdapter;
 import cn.hujw.wanandroid.ui.mvp.contract.HomeContract;
@@ -46,6 +45,8 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     @BindView(R.id.tb_home)
     TitleBar mTitleBar;
+    @BindView(R.id.tv_home_search)
+    AppCompatTextView mSearchView;
     @BindView(R.id.srl_home)
     SmartRefreshLayout mSmartRefreshLayout;
     @BindView(R.id.bga_banner_home)
@@ -71,23 +72,6 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     @Override
     protected void initView() {
-
-        mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
-            @Override
-            public void onLeftClick(View v) {
-
-            }
-
-            @Override
-            public void onTitleClick(View v) {
-
-            }
-
-            @Override
-            public void onRightClick(View v) {
-                startActivity(NavigationActivity.class);
-            }
-        });
 
         mAdapter = new ArticleAdapter(getContext());
         mAdapter.setOnItemClickListener(this);
@@ -186,5 +170,17 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
         WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
+    }
+
+    @OnClick({R.id.tv_home_search, R.id.iv_home_navigation})
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tv_home_search:
+                startActivity(SearchActivity.class);
+                break;
+            case R.id.iv_home_navigation:
+                startActivity(NavigationActivity.class);
+                break;
+        }
     }
 }

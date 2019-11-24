@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.SearchActivity">
+
+
+    <cn.hujw.titlebar.library.TitleBar
+        android:id="@+id/tb_home"
+        style="@style/TitleBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:rightBackground="@color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_home_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="38dp"
+                android:layout_marginRight="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_home_search_bar_transparent"
+                android:drawableLeft="@drawable/ico_search"
+                android:gravity="center|left"
+                android:hint="请输入搜索关键字"
+                android:paddingLeft="8dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="#a4a4a4"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_home_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </cn.hujw.titlebar.library.TitleBar>
+
+
+    <LinearLayout
+        android:id="@+id/ll_search_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="热门搜索"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_hot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="11dp"
+            android:paddingTop="10dp" />
+
+    </LinearLayout>
+
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_search"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <cn.hujw.widget.layout.HintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_article"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </cn.hujw.widget.layout.HintLayout>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

@@ -9,6 +9,10 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +63,7 @@ public class NavigationRightAdapter extends MyRecyclerViewAdapter<NavigationMode
             mAdapter.setData(mData);
             mAdapter.setOnItemClickListener((recyclerView, itemView, tag) -> mOnItemClick.onItemClick(itemView, position, tag));
 
-            StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+            FlexboxLayoutManager manager  = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);            mRecyclerView.setLayoutManager(manager);
             mRecyclerView.setLayoutManager(manager);
             mRecyclerView.setAdapter(mAdapter);
         }

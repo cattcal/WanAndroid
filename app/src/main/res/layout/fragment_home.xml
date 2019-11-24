@@ -11,11 +11,56 @@
         android:id="@+id/tb_home"
         style="@style/TitleBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?android:attr/actionBarSize"
         app:backButton="false"
-        app:rightBackground="@color/transparent"
-        app:rightIcon="@drawable/ico_navigation"
-        app:title="首页" />
+        app:layout_collapseMode="pin"
+        app:rightBackground="@color/transparent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_home_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="首页"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_home_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="28dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_home_search_bar_transparent"
+                android:drawableLeft="@drawable/ico_search"
+                android:gravity="center|left"
+                android:hint="请输入搜索关键字"
+                android:paddingLeft="8dp"
+                android:textColor="#a4a4a4"
+                android:textColorHint="#a4a4a4"
+                android:textSize="14sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_home_navigation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/ico_navigation"
+                android:text="首页" />
+
+        </LinearLayout>
+
+    </cn.hujw.titlebar.library.TitleBar>
 
 
     <cn.hujw.widget.layout.HintLayout
@@ -23,42 +68,42 @@
         android:layout_height="match_parent">
 
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/srl_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.core.widget.NestedScrollView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <cn.bingoogolapple.bgabanner.BGABanner
-                    android:id="@+id/bga_banner_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    app:banner_pageChangeDuration="1000"
-                    app:banner_pointAutoPlayAble="true"
-                    app:banner_pointContainerBackground="@android:color/transparent"
-                    app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-                    app:banner_pointTopBottomMargin="15dp"
-                    app:banner_transitionEffect="alpha" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home_list"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/bg_color" />
+                    android:orientation="vertical">
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/bga_banner_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:banner_pageChangeDuration="1000"
+                        app:banner_pointAutoPlayAble="true"
+                        app:banner_pointContainerBackground="@android:color/transparent"
+                        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+                        app:banner_pointTopBottomMargin="15dp"
+                        app:banner_transitionEffect="alpha" />
 
-        </androidx.core.widget.NestedScrollView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_color" />
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </cn.hujw.widget.layout.HintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>
