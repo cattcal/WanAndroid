@@ -8,6 +8,7 @@ import cn.hujw.wanandroid.model.home.mvp.modle.ArticleModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.BannerModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.HotModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserInfoModel;
 import cn.hujw.wanandroid.model.project.mvp.modle.ProjectArticleModel;
 import cn.hujw.wanandroid.model.project.mvp.modle.ProjectTabModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.SearchArticleModel;
@@ -30,6 +31,11 @@ import retrofit2.http.Query;
  * @date 2019/9/23 0023
  */
 public interface WanAndroidApi {
+
+    @FormUrlEncoded
+    @POST("user/login")
+    Observable<BaseData<UserInfoModel>> userLogin(@Field("username") String username, @Field("password") String password);
+
     /**
      * 获取banner数据
      */

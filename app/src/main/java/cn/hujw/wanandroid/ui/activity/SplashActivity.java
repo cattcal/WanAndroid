@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyActivity;
+import cn.hujw.wanandroid.model.login.activity.LoginActivity;
 import cn.hujw.wanandroid.other.AppConfig;
 
 /**
@@ -91,7 +92,7 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
 
     @Override
     public void hasPermission(List<String> granted, boolean isAll) {
-        startActivityFinish(HomeActivity.class);
+        startActivityFinish(LoginActivity.class);
     }
 
     @Override

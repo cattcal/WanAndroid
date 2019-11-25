@@ -63,6 +63,40 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
+        <!-- 登录界面 -->
+        <activity
+            android:name=".model.login.activity.LoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <!-- 注册界面 -->
+        <activity
+            android:name=".model.login.activity.RegisterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <!-- 设置界面 -->
+        <activity
+            android:name=".model.mine.activity.SettingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/setting_title"
+            android:screenOrientation="portrait" />
+
+        <!-- 忘记密码 -->
+        <activity
+            android:name=".model.login.activity.PasswordForgetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/password_forget_title"
+            android:screenOrientation="portrait" />
+
+        <!-- 重置密码 -->
+        <activity
+            android:name=".model.login.activity.PasswordResetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/password_reset_title"
+            android:screenOrientation="portrait" />
+
+
         <!-- 体系文章 -->
         <activity
             android:name=".model.home.activity.NavigationActivity"
@@ -76,7 +110,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/system_article"
             android:screenOrientation="portrait" />
-
 
         <!-- 搜索 -->
         <activity
