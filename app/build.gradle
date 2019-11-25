@@ -41,7 +41,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 // EventBus Apt 索引类生成位置
-                arguments = [ eventBusIndex : applicationId + '.MyEventBusIndex' ]
+                arguments = [eventBusIndex: applicationId + '.MyEventBusIndex']
             }
         }
     }
@@ -152,6 +152,9 @@ dependencies {
     // 友盟隔离
     implementation project(':umeng')
 
+    implementation project(':rx-http-utils')
+
+
     implementation "androidx.appcompat:appcompat:$rootProject.ext.appcompatVersion"
     implementation "com.google.android.material:material:$rootProject.ext.materialVersion"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -202,7 +205,7 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     //网络请求： https://github.com/lygttpod/RxHttpUtils
-    implementation 'com.github.lygttpod:RxHttpUtils:2.3.3'
+//    implementation 'com.github.lygttpod:RxHttpUtils:2.3.3'
 
     //工具类： https://github.com/Blankj/AndroidUtilCode
     implementation 'com.blankj:utilcodex:1.25.9'
@@ -218,8 +221,6 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 
     implementation 'com.sunfusheng:MarqueeView:1.4.1'
-
-
 
 
     // 网络请求（待发布）：https://github.com/getActivity/EasyHttp

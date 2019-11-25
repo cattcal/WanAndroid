@@ -1,2 +1,2 @@
-include ':app', ':image', ':umeng', ':base', ':widget'
+include ':app', ':image', ':umeng', ':base', ':widget', ':rx-http-utils'
 rootProject.name='WanAndroid'

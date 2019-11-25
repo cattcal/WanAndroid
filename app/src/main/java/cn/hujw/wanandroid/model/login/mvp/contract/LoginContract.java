@@ -15,11 +15,11 @@ public class LoginContract {
 
         void getLoginSuccess(UserInfoModel data);
 
-        void getLoginInfoError(String msg);
+        void getLoginError(String msg);
     }
 
     public interface Presenter {
 
-        void getLogin( String userName,String passWord);
+        void getLogin(String userName, String passWord);
     }
 }

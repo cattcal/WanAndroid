@@ -30,6 +30,6 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
 
     @Override
     public void onLoginFail(String msg) {
-        getView().getLoginInfoError(msg);
+        getView().getLoginError(msg);
     }
 }

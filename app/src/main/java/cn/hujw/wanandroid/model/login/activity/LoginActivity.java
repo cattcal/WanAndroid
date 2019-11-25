@@ -134,8 +134,6 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
                 break;
             case R.id.btn_login_commit:
                 mPresenter.getLogin(mUserNameView.getText()+"",mPasswordView.getText()+"");
-
-
                 break;
             case R.id.iv_login_qq:
             case R.id.iv_login_weChat:
@@ -251,12 +249,13 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
 
     @Override
     public void getLoginSuccess(UserInfoModel data) {
-        // 处理登录
-        startActivityFinish(HomeActivity.class);
+
+            startActivityFinish(HomeActivity.class);
+
     }
 
     @Override
-    public void getLoginInfoError(String msg) {
+    public void getLoginError(String msg) {
         toast(msg);
     }
 }
