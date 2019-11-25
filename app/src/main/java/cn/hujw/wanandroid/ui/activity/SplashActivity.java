@@ -38,7 +38,6 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
     @BindView(R.id.tv_splash_debug)
     View mDebugView;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
@@ -46,7 +45,6 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
 
     @Override
     protected void initView() {
-
         // 初始化动画
         AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
         aa.setDuration(ANIM_TIME * 2);
@@ -87,6 +85,9 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
                 .request(this);
     }
 
+    /**
+     * {@link OnPermission}
+     */
 
     @Override
     public void hasPermission(List<String> granted, boolean isAll) {
@@ -125,9 +126,7 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
      */
 
     @Override
-    public void onAnimationStart(Animation animation) {
-
-    }
+    public void onAnimationStart(Animation animation) {}
 
     @Override
     public void onAnimationEnd(Animation animation) {
@@ -135,8 +134,6 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
     }
 
     @Override
-    public void onAnimationRepeat(Animation animation) {
-
-    }
+    public void onAnimationRepeat(Animation animation) {}
 
 }

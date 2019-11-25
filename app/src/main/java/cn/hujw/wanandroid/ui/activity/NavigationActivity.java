@@ -43,7 +43,6 @@ public final class NavigationActivity extends MvpActivity implements NavigationC
     private NavigationRightAdapter mRightAdapter;
 
     private List<NavigationModel> mData = new ArrayList<>();
-    private List<NavigationModel.ArticlesBean> mArticlesData = new ArrayList<>();
     private LinearLayoutManager tabManager;
     private LinearLayoutManager rightManager;
 
@@ -85,8 +84,8 @@ public final class NavigationActivity extends MvpActivity implements NavigationC
             public void onScrolling(RecyclerView recyclerView) {
 
                 int firstVisibleItemPosition = rightManager.findFirstVisibleItemPosition();
-                mTabAdapter.setSelectPosition(firstVisibleItemPosition );
-                mTabRecyclerView.smoothScrollToPosition(firstVisibleItemPosition+1);
+                mTabAdapter.setSelectPosition(firstVisibleItemPosition);
+                mTabRecyclerView.smoothScrollToPosition(firstVisibleItemPosition + 1);
                 moveTabClickItemToCenter(firstVisibleItemPosition);
 
             }

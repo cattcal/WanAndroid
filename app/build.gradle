@@ -126,9 +126,9 @@ android {
         variant.outputs[0].processManifest.doLast {
             def manifestFile = "${manifestOutputDirectory}/AndroidManifest.xml"
             def updatedContent = new File(manifestFile).getText('UTF-8')
-                    .replaceAll("UMENG_APPKEY_VALUE", "5d62924f4ca35746df000b13") // 友盟 AppKey
-                    .replaceAll("QQ_APPID_VALUE", "100424468") // QQ AppId
-                    .replaceAll("QQ_APPKEY_VALUE", "c7394704798a158208a74ab60104f0ba") // QQ Key
+                    .replaceAll("UMENG_APPKEY_VALUE", "5ddb2f0c3fc1952bcb000982") // 友盟 AppKey
+                    .replaceAll("QQ_APPID_VALUE", "101831486") // QQ AppId
+                    .replaceAll("QQ_APPKEY_VALUE", "4ffe56c387284e5344c226e33e6300c8") // QQ Key
                     .replaceAll("WX_APPID_VALUE", "wxdc1e388c3822c80b") // 微信 AppId
                     .replaceAll("WX_APPKEY_VALUE", "3baf1193c85774b3fd9d18447d76cab0") // 微信 Key
             new File(manifestFile).write(updatedContent, 'UTF-8')

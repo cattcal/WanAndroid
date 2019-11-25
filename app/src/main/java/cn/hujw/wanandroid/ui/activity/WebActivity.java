@@ -19,10 +19,15 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import butterknife.BindView;
+import cn.hujw.titlebar.library.OnTitleBarListener;
+import cn.hujw.titlebar.library.TitleBar;
+import cn.hujw.umeng.Platform;
+import cn.hujw.umeng.UmengShare;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyActivity;
 import cn.hujw.wanandroid.helper.WebViewLifecycleUtils;
 import cn.hujw.wanandroid.other.IntentKey;
+import cn.hujw.wanandroid.ui.dialog.ShareDialog;
 
 /**
  * @author: hujw
@@ -32,6 +37,8 @@ import cn.hujw.wanandroid.other.IntentKey;
  */
 public final class WebActivity extends MyActivity {
 
+    private String url;
+
     public static void start(Context context, String url) {
         if (url == null || "".equals(url)) {
             return;
@@ -40,6 +47,9 @@ public final class WebActivity extends MyActivity {
         intent.putExtra(IntentKey.URL, url);
         context.startActivity(intent);
     }
+
+    @BindView(R.id.tb_web)
+    TitleBar mTitleBar;
 
     @BindView(R.id.pb_web_progress)
     ProgressBar mProgressBar;
@@ -54,7 +64,53 @@ public final class WebActivity extends MyActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void initView() {
+
+        url = getIntent().getStringExtra(IntentKey.URL);
+
         WebViewLifecycleUtils.init(mWebView);
+
+        mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
+            @Override
+            public void onLeftClick(View v) {
+                finish();
+            }
+
+            @Override
+            public void onTitleClick(View v) {
+
+            }
+
+            @Override
+            public void onRightClick(View v) {
+                new ShareDialog.Builder(getActivity())
+                        // 分享标题
+                        .setShareTitle(mTitleBar.getTitle()+"")
+                        // 分享描述
+                        .setShareDescription("WanAndroid")
+                        // 分享缩略图
+                        .setShareLogo(R.drawable.ic_launcher)
+                        // 分享链接
+                        .setShareUrl(url)
+                        .setListener(new UmengShare.OnShareListener() {
+
+                            @Override
+                            public void onSucceed(Platform platform) {
+                                toast("分享成功");
+                            }
+
+                            @Override
+                            public void onError(Platform platform, Throwable t) {
+                                toast("分享出错");
+                            }
+
+                            @Override
+                            public void onCancel(Platform platform) {
+                                toast("分享取消");
+                            }
+                        })
+                        .show();
+            }
+        });
     }
 
     @Override
