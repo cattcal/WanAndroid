@@ -65,14 +65,14 @@
 
         <!-- 体系文章 -->
         <activity
-            android:name=".ui.activity.NavigationActivity"
+            android:name=".model.home.activity.NavigationActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/navigation"
             android:screenOrientation="portrait" />
 
         <!-- 体系文章 -->
         <activity
-            android:name=".ui.activity.SystemArticleActivity"
+            android:name=".model.system.activity.SystemArticleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/system_article"
             android:screenOrientation="portrait" />
@@ -80,7 +80,7 @@
 
         <!-- 搜索 -->
         <activity
-            android:name=".ui.activity.SearchActivity"
+            android:name=".model.home.activity.SearchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 

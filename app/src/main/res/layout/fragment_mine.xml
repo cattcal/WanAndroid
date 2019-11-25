@@ -1,23 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <cn.hujw.titlebar.library.TitleBar
-        style="@style/TitleBarStyle"
-        android:id="@+id/tb_mine"
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_mine_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backButton="false"
-        app:title="我的" />
+        android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
+
+        <cn.hujw.wanandroid.widget.XCollapsingToolbarLayout
+            android:id="@+id/ctl_mine_bar"
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            app:contentScrim="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:scrimVisibleHeightTrigger="100dp">
+
+            <cn.hujw.widget.round.RoundRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="100dp"
+                app:layout_collapseMode="parallax"
+                app:rv_backgroundColor="@color/colorAccent"
+                app:rv_cornerRadius_BL="8dp"
+                app:rv_cornerRadius_BR="8dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd_avatar_big"
+                    style="@style/CircleCardViewStyle"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="15dp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white80"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_mine_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/cd_avatar_big"
+                    android:text="calf"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_mine_grade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_mine_name"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/cd_avatar_big"
+                    android:text="等级：--"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_mine_name"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/tv_mine_grade"
+                    android:text="排名：--"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+
+            </cn.hujw.widget.round.RoundRelativeLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/t_mine_title"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_marginRight="20dp"
+                app:layout_collapseMode="pin" />
+
+            <cn.hujw.titlebar.library.TitleBar
+                style="@style/TitleBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:backButton="false"
+                app:barStyle="transparent"
+                app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cd_avatar_small"
+                        style="@style/CircleCardViewStyle"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_avatar_small"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white80"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/et_home_search"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingLeft="8dp"
+                        android:text="我的"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/tv_mine_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:src="@drawable/ico_mine_setting"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+            </cn.hujw.titlebar.library.TitleBar>
+
+
+        </cn.hujw.wanandroid.widget.XCollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                app:bar_leftText="我的积分"
+                app:bar_leftIcon="@drawable/ico_mine_integral"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="我的收藏"
+                app:bar_leftIcon="@drawable/ico_mine_collect"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="我的分享"
+                app:bar_leftIcon="@drawable/ico_mine_share"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+
+
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="玩转星球"
+                app:bar_leftIcon="@drawable/ico_mine_planet"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftText="常用网站"
+                app:bar_leftIcon="@drawable/ico_mine_website"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+
+
+
+            <cn.hujw.widget.layout.SettingBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftIcon="@drawable/ico_mine_about_us"
+                app:bar_leftText="关于我们"
+                app:bar_rightIcon="@drawable/ico_go_black" />
+        </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
-</LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

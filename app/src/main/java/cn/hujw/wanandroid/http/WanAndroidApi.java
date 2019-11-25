@@ -4,17 +4,17 @@ import com.allen.library.bean.BaseData;
 
 import java.util.List;
 
-import cn.hujw.wanandroid.ui.mvp.model.ArticleModel;
-import cn.hujw.wanandroid.ui.mvp.model.BannerModel;
-import cn.hujw.wanandroid.ui.mvp.model.HotModel;
-import cn.hujw.wanandroid.ui.mvp.model.NavigationModel;
-import cn.hujw.wanandroid.ui.mvp.model.ProjectArticleModel;
-import cn.hujw.wanandroid.ui.mvp.model.ProjectTabModel;
-import cn.hujw.wanandroid.ui.mvp.model.SearchArticleModel;
-import cn.hujw.wanandroid.ui.mvp.model.WeChatArticleModel;
-import cn.hujw.wanandroid.ui.mvp.model.WeChatTabModel;
-import cn.hujw.wanandroid.ui.mvp.model.SystemArticleModel;
-import cn.hujw.wanandroid.ui.mvp.model.SystemModel;
+import cn.hujw.wanandroid.model.home.mvp.modle.ArticleModel;
+import cn.hujw.wanandroid.model.home.mvp.modle.BannerModel;
+import cn.hujw.wanandroid.model.home.mvp.modle.HotModel;
+import cn.hujw.wanandroid.model.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.model.project.mvp.modle.ProjectArticleModel;
+import cn.hujw.wanandroid.model.project.mvp.modle.ProjectTabModel;
+import cn.hujw.wanandroid.model.home.mvp.modle.SearchArticleModel;
+import cn.hujw.wanandroid.model.wechat.mvp.modle.WeChatArticleModel;
+import cn.hujw.wanandroid.model.wechat.mvp.modle.WeChatTabModel;
+import cn.hujw.wanandroid.model.system.mvp.modle.SystemArticleModel;
+import cn.hujw.wanandroid.model.system.mvp.modle.SystemModel;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

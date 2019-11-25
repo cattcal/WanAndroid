@@ -17,11 +17,11 @@ import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.helper.DoubleClickHelper;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.other.KeyboardWatcher;
-import cn.hujw.wanandroid.ui.fragment.ProjectFragment;
-import cn.hujw.wanandroid.ui.fragment.SystemFragment;
-import cn.hujw.wanandroid.ui.fragment.HomeFragment;
-import cn.hujw.wanandroid.ui.fragment.WeChatFragment;
-import cn.hujw.wanandroid.ui.fragment.MineFragment;
+import cn.hujw.wanandroid.model.project.activity.ProjectFragment;
+import cn.hujw.wanandroid.model.system.fragment.SystemFragment;
+import cn.hujw.wanandroid.model.home.fragment.HomeFragment;
+import cn.hujw.wanandroid.model.wechat.fragment.WeChatFragment;
+import cn.hujw.wanandroid.model.mine.fragment.MineFragment;
 import cn.hujw.widget.layout.NoScrollViewPager;
 
 /**
