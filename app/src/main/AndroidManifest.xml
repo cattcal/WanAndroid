@@ -116,6 +116,20 @@
             android:label="@string/web_title"
             android:screenOrientation="portrait" />
 
+        <!-- 我的收藏 -->
+        <activity
+            android:name=".model.mine.activity.CollectActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/mine_collect"
+            android:screenOrientation="portrait" />
+
+        <!-- 收藏文章 -->
+        <activity
+            android:name=".model.mine.activity.CollectArticleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/collect_article"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

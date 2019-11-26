@@ -184,5 +184,9 @@
     <string name="photo_launch_fail">无法启动相机</string>
     <string name="photo_picture_error">图片错误</string>
     <string name="play_planet">玩转星球</string>
+    <string name="mine_collect">我的收藏</string>
+    <string name="collect_article">收藏文章</string>
+    <string name="collect_website">收藏网站</string>
+    <string name="read_later">稍后阅读</string>
 
 </resources>

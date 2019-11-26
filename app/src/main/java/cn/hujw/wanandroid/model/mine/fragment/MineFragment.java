@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.model.login.activity.LoginActivity;
+import cn.hujw.wanandroid.model.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.model.mine.activity.PlanetActivity;
 import cn.hujw.wanandroid.model.mine.activity.SettingActivity;
 import cn.hujw.wanandroid.model.mine.mvp.contract.MineContract;
@@ -144,6 +145,7 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             case R.id.sb_mine_integral:
                 break;
             case R.id.sb_mine_collect:
+                startActivity(CollectActivity.class);
                 break;
             case R.id.sb_mine_share:
                 break;

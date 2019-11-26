@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <cn.hujw.titlebar.library.TitleBar
+        style="@style/TitleBarStyle"
+        app:title="@string/mine_collect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <cn.hujw.widget.layout.SettingBar
+        android:layout_marginTop="15dp"
+        android:id="@+id/sb_collect_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/collect_article"
+        app:bar_rightIcon="@drawable/ico_go_black"/>
+
+    <cn.hujw.widget.layout.SettingBar
+        android:id="@+id/sb_collect_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/collect_website"
+        app:bar_rightIcon="@drawable/ico_go_black" />
+
+
+    <cn.hujw.widget.layout.SettingBar
+        android:layout_marginTop="15dp"
+        android:id="@+id/sb_read_later"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bar_leftText="@string/read_later"
+        app:bar_rightIcon="@drawable/ico_go_black" />
+
+</LinearLayout>

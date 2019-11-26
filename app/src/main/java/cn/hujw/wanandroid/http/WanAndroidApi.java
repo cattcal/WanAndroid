@@ -11,6 +11,7 @@ import cn.hujw.wanandroid.model.home.mvp.modle.HotModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.NavigationModel;
 import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.model.login.mvp.model.UserRegisterModel;
+import cn.hujw.wanandroid.model.mine.mvp.modle.CollectArticleModel;
 import cn.hujw.wanandroid.model.mine.mvp.modle.LeaderboardModel;
 import cn.hujw.wanandroid.model.mine.mvp.modle.PlanetModel;
 import cn.hujw.wanandroid.model.mine.mvp.modle.UserInfoModel;
@@ -115,6 +116,7 @@ public interface WanAndroidApi {
 
     /**
      * 热门搜索
+     *
      * @return
      */
     @GET("/hotkey/json")
@@ -140,7 +142,12 @@ public interface WanAndroidApi {
     @GET("coin/rank/1/json")
     Observable<BaseData<LeaderboardModel>> getLeaderboard();
 
-
+    /**
+     * 获取个人信息
+     */
     @GET("lg/coin/userinfo/json")
     Observable<BaseData<UserInfoModel>> getUserInfo();
+
+    @GET("lg/collect/list/{num}/json")
+    Observable<BaseData<CollectArticleModel>> getCollectArticle(@Path("num") int num);
 }
