@@ -92,7 +92,7 @@ public class SplashActivity extends MyActivity implements Animation.AnimationLis
 
     @Override
     public void hasPermission(List<String> granted, boolean isAll) {
-        startActivityFinish(LoginActivity.class);
+        startActivityFinish(HomeActivity.class);
     }
 
     @Override

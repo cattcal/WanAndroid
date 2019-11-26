@@ -82,21 +82,6 @@
             android:label="@string/setting_title"
             android:screenOrientation="portrait" />
 
-        <!-- 忘记密码 -->
-        <activity
-            android:name=".model.login.activity.PasswordForgetActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/password_forget_title"
-            android:screenOrientation="portrait" />
-
-        <!-- 重置密码 -->
-        <activity
-            android:name=".model.login.activity.PasswordResetActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:label="@string/password_reset_title"
-            android:screenOrientation="portrait" />
-
-
         <!-- 体系文章 -->
         <activity
             android:name=".model.home.activity.NavigationActivity"
@@ -109,6 +94,13 @@
             android:name=".model.system.activity.SystemArticleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/system_article"
+            android:screenOrientation="portrait" />
+
+        <!-- 玩转星球 -->
+        <activity
+            android:name=".model.mine.activity.PlanetActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/play_planet"
             android:screenOrientation="portrait" />
 
         <!-- 搜索 -->

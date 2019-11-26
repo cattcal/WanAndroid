@@ -6,16 +6,16 @@ import com.allen.library.observer.DataObserver;
 import java.util.List;
 
 import cn.hujw.wanandroid.http.ApiHelper;
-import cn.hujw.wanandroid.model.login.mvp.listener.LoginOnListener;
+import cn.hujw.wanandroid.model.login.mvp.listener.RegisterOnListener;
 import cn.hujw.wanandroid.mvp.MvpModel;
 
 /**
  * 描述：
  *
  * @author hujw
- * @date 2019/11/25 0025
+ * @date 2019/11/26 0026
  */
-public final class UserInfoModel extends MvpModel<LoginOnListener> {
+public class UserRegisterModel extends MvpModel<RegisterOnListener> {
 
     /**
      * admin : false
@@ -23,13 +23,13 @@ public final class UserInfoModel extends MvpModel<LoginOnListener> {
      * collectIds : []
      * email :
      * icon :
-     * id : 20690
-     * nickname : huxiaoniu
+     * id : 36533
+     * nickname : huxiaoniu1
      * password :
-     * publicName : huxiaoniu
+     * publicName : huxiaoniu1
      * token :
      * type : 0
-     * username : huxiaoniu
+     * username : huxiaoniu1
      */
 
     private boolean admin;
@@ -45,23 +45,24 @@ public final class UserInfoModel extends MvpModel<LoginOnListener> {
     private List<?> chapterTops;
     private List<?> collectIds;
 
-    public void userLogin(String username,String  password) {
+    public void userRegister(String username,String  password,String repassword) {
         // 为了省事，这里直接回调成功
         ApiHelper.getWanAndroidApi()
-                .userLogin(username,password)
+                .userRegister(username,password,repassword)
                 .compose(Transformer.switchSchedulers())
-                .subscribe(new DataObserver<UserInfoModel>() {
+                .subscribe(new DataObserver<UserRegisterModel>() {
                     @Override
                     protected void onError(String errorMsg) {
-                        getListener().onLoginFail(errorMsg);
+                        getListener().onRegisterFail(errorMsg);
                     }
 
                     @Override
-                    protected void onSuccess(UserInfoModel data) {
-                        getListener().onLoginSucceed(data);
+                    protected void onSuccess(UserRegisterModel data) {
+                        getListener().onRegisterSucceed(data);
                     }
                 });
     }
+
 
     public boolean isAdmin() {
         return admin;

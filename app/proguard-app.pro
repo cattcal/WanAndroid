@@ -41,4 +41,3 @@
 
 # Application classes that will be serialized/deserialized over Gson 下面替换成自己的实体类
 -keep class cn.hujw.wanandroid.** { *; }
-#-keep class com.allen.library.** { *; }

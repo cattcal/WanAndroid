@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "cn.hujw.wanandroid"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion rootProject.ext.compileVersion
         versionCode 1
         versionName "1.0"
@@ -208,7 +208,7 @@ dependencies {
 //    implementation 'com.github.lygttpod:RxHttpUtils:2.3.3'
 
     //工具类： https://github.com/Blankj/AndroidUtilCode
-    implementation 'com.blankj:utilcodex:1.25.9'
+//    implementation 'com.blankj:utilcodex:1.25.9'
 
     // 轮播图：https://github.com/bingoogolapple/BGABanner-Android
     implementation 'cn.bingoogolapple:bga-banner:3.0.0@aar'

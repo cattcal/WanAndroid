@@ -27,16 +27,13 @@ public final class RxHttpUtilsManager {
         OkHttpClient okHttpClient = new OkHttpConfig
                 .Builder(application.getApplicationContext())
                 //全局的请求头信息
-                .setHeaders(new BuildHeadersListener() {
-                    @Override
-                    public Map<String, String> buildHeaders() {
-                        HashMap<String, String> hashMap = new HashMap<>();
-                        hashMap.put("appVersion", AppConfig.getVersionName());
-                        hashMap.put("client", "android");
-                        hashMap.put("token", "your_token");
-                        hashMap.put("other_header", URLEncoder.encode("中文需要转码"));
-                        return hashMap;
-                    }
+                .setHeaders(() -> {
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("appVersion", AppConfig.getVersionName());
+                    hashMap.put("client", "android");
+                    hashMap.put("token", "your_token");
+                    hashMap.put("other_header", URLEncoder.encode("中文需要转码"));
+                    return hashMap;
                 })
                 //开启缓存策略(默认false)
                 //1、在有网络的时候，先去读缓存，缓存时间到了，再去访问网络获取数据；

@@ -183,5 +183,6 @@
 
     <string name="photo_launch_fail">无法启动相机</string>
     <string name="photo_picture_error">图片错误</string>
+    <string name="play_planet">玩转星球</string>
 
 </resources>

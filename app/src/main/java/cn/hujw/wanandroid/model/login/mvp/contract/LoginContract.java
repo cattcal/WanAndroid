@@ -1,6 +1,6 @@
 package cn.hujw.wanandroid.model.login.mvp.contract;
 
-import cn.hujw.wanandroid.model.login.mvp.model.UserInfoModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.mvp.IMvpView;
 
 /**
@@ -13,7 +13,7 @@ public class LoginContract {
 
     public interface View extends IMvpView {
 
-        void getLoginSuccess(UserInfoModel data);
+        void getLoginSuccess(UserLoginModel data);
 
         void getLoginError(String msg);
     }

@@ -11,7 +11,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.helper.InputTextHelper;
+import cn.hujw.wanandroid.model.login.mvp.contract.RegisterContract;
+import cn.hujw.wanandroid.model.login.mvp.model.UserRegisterModel;
+import cn.hujw.wanandroid.model.login.mvp.presenter.RegisterPresenter;
 import cn.hujw.wanandroid.mvp.MvpActivity;
+import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.widget.view.RegexEditText;
 
 /**
@@ -20,7 +24,10 @@ import cn.hujw.widget.view.RegexEditText;
  * @description: 注册界面
  * @email: hujw_android@163.com
  */
-public class RegisterActivity extends MvpActivity {
+public class RegisterActivity extends MvpActivity implements RegisterContract.View {
+
+    @MvpInject
+    RegisterPresenter mPresenter;
 
     @BindView(R.id.et_register_user_name)
     RegexEditText mUserNameView;
@@ -68,11 +75,24 @@ public class RegisterActivity extends MvpActivity {
                 if (!mPasswordView1.getText().toString().equals(mPasswordView2.getText().toString())) {
                     toast(R.string.register_password_input_error);
                 } else {
-                    startActivity(LoginActivity.class);
+                    mPresenter.getRegister(mUserNameView.getText() + "",
+                            mPasswordView1.getText() + "",
+                            mPasswordView2.getText() + "");
+
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void getRegisterSuccess(UserRegisterModel data) {
+        startActivity(LoginActivity.class);
+    }
+
+    @Override
+    public void getRegisterError(String msg) {
+        toast(msg);
     }
 }

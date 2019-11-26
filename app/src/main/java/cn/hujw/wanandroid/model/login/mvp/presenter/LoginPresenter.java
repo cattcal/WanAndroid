@@ -2,7 +2,7 @@ package cn.hujw.wanandroid.model.login.mvp.presenter;
 
 import cn.hujw.wanandroid.model.login.mvp.contract.LoginContract;
 import cn.hujw.wanandroid.model.login.mvp.listener.LoginOnListener;
-import cn.hujw.wanandroid.model.login.mvp.model.UserInfoModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpPresenter;
 
@@ -15,7 +15,7 @@ import cn.hujw.wanandroid.mvp.MvpPresenter;
 public class LoginPresenter extends MvpPresenter<LoginContract.View> implements LoginContract.Presenter, LoginOnListener {
 
     @MvpInject
-    UserInfoModel model;
+    UserLoginModel model;
 
     @Override
     public void getLogin(String userName, String passWord) {
@@ -24,7 +24,7 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
     }
 
     @Override
-    public void onLoginSucceed(UserInfoModel data) {
+    public void onLoginSucceed(UserLoginModel data) {
         getView().getLoginSuccess(data);
     }
 

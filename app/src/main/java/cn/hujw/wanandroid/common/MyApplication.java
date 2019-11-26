@@ -21,7 +21,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.umeng.UmengClient;
-import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.http.RxHttpUtilsManager;
 import cn.hujw.wanandroid.other.EventBusManager;
 import cn.hujw.wanandroid.ui.activity.CrashActivity;
@@ -126,6 +125,7 @@ public final class MyApplication extends Application {
                 // 设置监听器
                 //.eventListener(new YourCustomEventListener())
                 .apply();
+
     }
 
     @Override

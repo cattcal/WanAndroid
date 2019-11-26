@@ -1,6 +1,7 @@
 package cn.hujw.wanandroid.http;
 
 import com.allen.library.bean.BaseData;
+import com.tencent.bugly.crashreport.biz.UserInfoBean;
 
 import java.util.List;
 
@@ -8,7 +9,12 @@ import cn.hujw.wanandroid.model.home.mvp.modle.ArticleModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.BannerModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.HotModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.NavigationModel;
-import cn.hujw.wanandroid.model.login.mvp.model.UserInfoModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserRegisterModel;
+import cn.hujw.wanandroid.model.mine.mvp.modle.LeaderboardModel;
+import cn.hujw.wanandroid.model.mine.mvp.modle.PlanetModel;
+import cn.hujw.wanandroid.model.mine.mvp.modle.UserInfoModel;
+import cn.hujw.wanandroid.model.mine.mvp.modle.UserLogoutModel;
 import cn.hujw.wanandroid.model.project.mvp.modle.ProjectArticleModel;
 import cn.hujw.wanandroid.model.project.mvp.modle.ProjectTabModel;
 import cn.hujw.wanandroid.model.home.mvp.modle.SearchArticleModel;
@@ -32,9 +38,26 @@ import retrofit2.http.Query;
  */
 public interface WanAndroidApi {
 
+    /**
+     * 用户登录
+     */
     @FormUrlEncoded
     @POST("user/login")
-    Observable<BaseData<UserInfoModel>> userLogin(@Field("username") String username, @Field("password") String password);
+    Observable<BaseData<UserLoginModel>> userLogin(@Field("username") String username, @Field("password") String password);
+
+    /**
+     * 用户注册
+     */
+    @FormUrlEncoded
+    @POST("user/register")
+    Observable<BaseData<UserRegisterModel>> userRegister(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+
+
+    /**
+     * 退出
+     */
+    @GET("user/logout/json")
+    Observable<BaseData<UserLogoutModel>> userLogout();
 
     /**
      * 获取banner数据
@@ -90,11 +113,34 @@ public interface WanAndroidApi {
     @GET("navi/json")
     Observable<BaseData<List<NavigationModel>>> getNavigation();
 
+    /**
+     * 热门搜索
+     * @return
+     */
     @GET("/hotkey/json")
     Observable<BaseData<List<HotModel>>> getHot();
 
+    /**
+     * 搜索文章
+     */
     @FormUrlEncoded
     @POST("article/query/{num}/json")
     Observable<BaseData<SearchArticleModel>> getSearchArticle(@Path("num") int num, @Field("k") String search);
 
+    /**
+     * 广场即玩转星球
+     */
+    @GET("user_article/list/{num}/json")
+    Observable<BaseData<PlanetModel>> getPlanet(@Path("num") int num);
+
+
+    /**
+     * 积分排行榜
+     */
+    @GET("coin/rank/1/json")
+    Observable<BaseData<LeaderboardModel>> getLeaderboard();
+
+
+    @GET("lg/coin/userinfo/json")
+    Observable<BaseData<UserInfoModel>> getUserInfo();
 }

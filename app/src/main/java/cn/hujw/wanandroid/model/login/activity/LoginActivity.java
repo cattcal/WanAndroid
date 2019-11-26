@@ -2,6 +2,7 @@ package cn.hujw.wanandroid.model.login.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -18,9 +19,10 @@ import cn.hujw.umeng.Platform;
 import cn.hujw.umeng.UmengClient;
 import cn.hujw.umeng.UmengLogin;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.InputTextHelper;
 import cn.hujw.wanandroid.model.login.mvp.contract.LoginContract;
-import cn.hujw.wanandroid.model.login.mvp.model.UserInfoModel;
+import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.model.login.mvp.presenter.LoginPresenter;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
@@ -37,7 +39,7 @@ import cn.hujw.wxapi.WXEntryActivity;
  * @author hujw
  * @date 2019/11/25 0025
  */
-public final class LoginActivity extends MvpActivity implements LoginContract.View,KeyboardWatcher.SoftKeyboardStateListener, UmengLogin.OnLoginListener {
+public final class LoginActivity extends MvpActivity implements LoginContract.View, KeyboardWatcher.SoftKeyboardStateListener, UmengLogin.OnLoginListener {
 
     @MvpInject
     LoginPresenter mPresenter;
@@ -65,6 +67,12 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
     ScaleImageView mQQView;
     @BindView(R.id.iv_login_weChat)
     ScaleImageView mWeChatView;
+
+    public static void start(Context context) {
+
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
     /**
      * logo 缩放比例
@@ -130,10 +138,10 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forget:
-                startActivity(PasswordForgetActivity.class);
+//                startActivity(PasswordForgetActivity.class);
                 break;
             case R.id.btn_login_commit:
-                mPresenter.getLogin(mUserNameView.getText()+"",mPasswordView.getText()+"");
+                mPresenter.getLogin(mUserNameView.getText() + "", mPasswordView.getText() + "");
                 break;
             case R.id.iv_login_qq:
             case R.id.iv_login_weChat:
@@ -248,9 +256,11 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
     }
 
     @Override
-    public void getLoginSuccess(UserInfoModel data) {
+    public void getLoginSuccess(UserLoginModel data) {
 
-            startActivityFinish(HomeActivity.class);
+        startActivityFinish(HomeActivity.class);
+
+        new RefreshBus().post();
 
     }
 
