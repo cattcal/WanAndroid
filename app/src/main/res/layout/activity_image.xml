@@ -7,7 +7,7 @@
     android:background="#363636"
     tools:context=".ui.activity.ImageActivity">
 
-    <cn.hujw.demo.widget.PhotoViewPager
+    <cn.hujw.wanandroid.widget.PhotoViewPager
         android:id="@+id/vp_image_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

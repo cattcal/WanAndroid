@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".model.home.fragment.HomeFragment">
+    tools:context=".module.home.fragment.HomeFragment">
 
     <cn.hujw.titlebar.library.TitleBar
         android:id="@+id/tb_home"

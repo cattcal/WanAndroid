@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+
+    <FrameLayout
+        android:id="@+id/fl_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_item_rank"
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:paddingTop="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_rank_1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_item_rank"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/textColor"
+            android:textSize="12sp"
+            tools:text="1" />
+
+    </FrameLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/fl_level"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="0dp"
+        android:text="huxiaoniu"
+        android:textSize="14sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_item_integral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right"
+        android:text="48"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+</RelativeLayout>

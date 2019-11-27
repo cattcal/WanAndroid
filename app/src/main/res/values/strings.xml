@@ -188,5 +188,8 @@
     <string name="collect_article">收藏文章</string>
     <string name="collect_website">收藏网站</string>
     <string name="read_later">稍后阅读</string>
+    <string name="mine_integral">我的积分</string>
+    <string name="points_rule">积分规则</string>
+    <string name="leaderboard">积分排行榜</string>
 
 </resources>

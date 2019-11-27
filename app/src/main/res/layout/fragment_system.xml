@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context=".model.system.fragment.SystemFragment">
+    tools:context=".module.system.fragment.SystemFragment">
 
     <cn.hujw.titlebar.library.TitleBar
         android:id="@+id/tb_find_bar"
