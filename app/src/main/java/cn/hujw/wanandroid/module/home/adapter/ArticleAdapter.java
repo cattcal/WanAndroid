@@ -1,9 +1,11 @@
 package cn.hujw.wanandroid.module.home.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import butterknife.BindView;
@@ -39,6 +41,11 @@ public class ArticleAdapter extends MyRecyclerViewAdapter<ArticleModel.DatasBean
         AppCompatTextView mNiceShareDateView;
         @BindView(R.id.item_tv_title)
         AppCompatTextView mTitleView;
+        @BindView(R.id.item_tv_chapter_name)
+        AppCompatTextView mChapterName;
+
+        @BindView(R.id.item_iv_collect)
+        AppCompatImageView mCollectView;
 
 
         public ViewHolder() {
@@ -50,7 +57,21 @@ public class ArticleAdapter extends MyRecyclerViewAdapter<ArticleModel.DatasBean
             mShareUserView.setText(!getItem(position).getShareUser().equals("") ? getItem(position).getShareUser() : getItem(position).getAuthor());
             mNiceShareDateView.setText(getItem(position).getNiceShareDate());
             mTitleView.setText(getItem(position).getTitle());
+            mChapterName.setText(getItem(position).getSuperChapterName() + "·" + getItem(position).getChapterName());
+
+            mCollectView.setImageResource(getItem(position).isCollect() ? R.drawable.ico_collect : R.drawable.ico_collect_normal);
+            mCollectView.setOnClickListener(view -> mOnViewItemClickListener.onItemClick(mCollectView, position));
         }
     }
 
+    public interface OnViewItemClickListener {
+        void onItemClick(View view, int position);
+
+    }
+
+    private OnViewItemClickListener mOnViewItemClickListener;
+
+    public void setmOnViewItemClickListener(OnViewItemClickListener mOnViewItemClickListener) {
+        this.mOnViewItemClickListener = mOnViewItemClickListener;
+    }
 }

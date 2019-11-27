@@ -3,6 +3,7 @@ package cn.hujw.wanandroid.module.home.fragment;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,10 @@ import cn.hujw.wanandroid.module.home.mvp.contract.HomeContract;
 import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
 import cn.hujw.wanandroid.module.home.mvp.modle.BannerModel;
 import cn.hujw.wanandroid.module.home.mvp.presenter.HomePresenter;
+import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
+import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
+import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
+import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
 
 /**
  * @author: hujw
@@ -36,11 +41,14 @@ import cn.hujw.wanandroid.module.home.mvp.presenter.HomePresenter;
  * @description: 主页面
  * @email: hujw_android@163.com
  */
-public class HomeFragment extends MvpLazyFragment implements HomeContract.View, BaseRecyclerViewAdapter.OnItemClickListener {
+public class HomeFragment extends MvpLazyFragment implements HomeContract.View, CollectContract.View, BaseRecyclerViewAdapter.OnItemClickListener, ArticleAdapter.OnViewItemClickListener {
 
     private static final String TAG = "HomeFragment";
     @MvpInject
     HomePresenter mPresenter;
+
+    @MvpInject
+    CollectPresenter collectPresenter;
 
     @BindView(R.id.tb_home)
     TitleBar mTitleBar;
@@ -58,6 +66,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     private int mCurrentPage;
     private List<BannerModel> bannerData = new ArrayList<>();
+    private AppCompatImageView mCollectView;
 
 
     public static HomeFragment newInstance() {
@@ -74,6 +83,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
         mAdapter = new ArticleAdapter(getContext());
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setmOnViewItemClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
 
@@ -173,7 +183,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     @OnClick({R.id.tv_home_search, R.id.iv_home_navigation})
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_home_search:
                 startActivity(SearchActivity.class);
                 break;
@@ -181,5 +191,49 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
                 startActivity(NavigationActivity.class);
                 break;
         }
+    }
+
+    @Override
+    public void getCollectSuccess(CollectModel data) {
+        toast("收藏成功");
+        mCollectView.setImageResource(R.drawable.ico_collect);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getCollectError(String msg) {
+
+    }
+
+    @Override
+    public void getUnCollectSuccess(UnCollectModel data) {
+        toast("取消收藏");
+        mCollectView.setImageResource(R.drawable.ico_collect_normal);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getUnCollectError(String msg) {
+
+    }
+
+    /**
+     * 收藏
+     *
+     * @param view
+     * @param position
+     */
+    @Override
+    public void onItemClick(View view, int position) {
+        mCollectView = view.findViewById(R.id.item_iv_collect);
+        boolean collectFlag = mAdapter.getData().get(position).isCollect();
+
+        if (collectFlag == false) {
+            collectPresenter.getCollect(mAdapter.getData().get(position).getId());
+        } else {
+            collectPresenter.getUnCollect(mAdapter.getData().get(position).getId());
+        }
+
+
     }
 }

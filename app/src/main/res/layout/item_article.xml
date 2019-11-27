@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    android:layout_marginTop="16dp"
     android:layout_marginLeft="16dp"
+    android:layout_marginTop="16dp"
     android:layout_marginRight="16dp"
-    app:cardElevation="0px"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0px">
 
 
-    <FrameLayout
-        android:layout_margin="16dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_tv_share_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black70"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="分享人" />
 
 
@@ -30,22 +30,41 @@
             android:id="@+id/item_tv_nice_share_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
             android:textColor="@color/black70"
-            android:textSize="14sp"
+            android:textSize="12sp"
             tools:text="分享时间" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="5dp"
             android:id="@+id/item_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="bottom"
-            android:textColor="@color/black70"
-            android:textSize="16sp"
+            android:layout_below="@+id/item_tv_share_user"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
             tools:text="标题" />
-    </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/item_tv_chapter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_tv_title"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            tools:text="多媒体" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_iv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_tv_title"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ico_collect_normal" />
+
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>

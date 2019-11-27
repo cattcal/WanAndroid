@@ -2,14 +2,17 @@ package cn.hujw.wanandroid.module.mine.adapter;
 
 import android.content.Context;
 import android.text.Html;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import butterknife.BindView;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
+import cn.hujw.wanandroid.module.home.adapter.ArticleAdapter;
 import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
 
 /**
@@ -39,6 +42,8 @@ public class CollectArticleAdapter extends MyRecyclerViewAdapter<CollectArticleM
         @BindView(R.id.item_tv_title)
         AppCompatTextView mTitleView;
 
+        @BindView(R.id.item_iv_collect)
+        AppCompatImageView mCollectView;
 
         public ViewHolder() {
             super(R.layout.item_article);
@@ -49,6 +54,22 @@ public class CollectArticleAdapter extends MyRecyclerViewAdapter<CollectArticleM
             mShareUserView.setText(getItem(position).getAuthor());
             mNiceShareDateView.setText(getItem(position).getNiceDate());
             mTitleView.setText(Html.fromHtml(getItem(position).getTitle()));
+
+            mCollectView.setImageResource(R.drawable.ico_collect);
+            mCollectView.setOnClickListener(view -> mOnViewItemClickListener.onItemClick(mCollectView, position));
+
         }
+    }
+
+
+    public interface OnViewItemClickListener {
+        void onItemClick(View view, int position);
+
+    }
+
+    private ArticleAdapter.OnViewItemClickListener mOnViewItemClickListener;
+
+    public void setmOnViewItemClickListener(ArticleAdapter.OnViewItemClickListener mOnViewItemClickListener) {
+        this.mOnViewItemClickListener = mOnViewItemClickListener;
     }
 }

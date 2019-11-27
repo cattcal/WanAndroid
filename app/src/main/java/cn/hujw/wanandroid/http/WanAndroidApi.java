@@ -24,6 +24,8 @@ import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
 import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatTabModel;
 import cn.hujw.wanandroid.module.system.mvp.modle.SystemArticleModel;
 import cn.hujw.wanandroid.module.system.mvp.modle.SystemModel;
+import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
+import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -166,4 +168,14 @@ public interface WanAndroidApi {
      */
     @GET("user/lg/private_articles/{num}/json")
     Observable<BaseData<MineShareModel>> getShareArticle(@Path("num") int num);
+
+
+    /**
+     * 收藏
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseData<CollectModel>> getCollect(@Path("id") int id);
+
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<BaseData<UnCollectModel>> getUnCollect(@Path("id") int id);
 }
