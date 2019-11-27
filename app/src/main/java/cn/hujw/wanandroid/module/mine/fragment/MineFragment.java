@@ -25,6 +25,7 @@ import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.module.mine.activity.LeaderboardActivity;
 import cn.hujw.wanandroid.module.mine.activity.MineIntegralActivity;
+import cn.hujw.wanandroid.module.mine.activity.MineShareActivity;
 import cn.hujw.wanandroid.module.mine.activity.PlanetActivity;
 import cn.hujw.wanandroid.module.mine.activity.SettingActivity;
 import cn.hujw.wanandroid.module.mine.mvp.contract.MineContract;
@@ -191,6 +192,12 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
                 startActivity(CollectActivity.class);
                 break;
             case R.id.sb_mine_share:
+                if (cookieStore.getAllCookie().size() == 0) {
+                    startActivity(LoginActivity.class);
+                } else {
+                    startActivity(MineShareActivity.class);
+                }
+
                 break;
             case R.id.sb_mine_planet:
                 startActivity(PlanetActivity.class);

@@ -14,6 +14,7 @@ import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.MineIntegralModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.LeaderboardModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.PlanetModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.MineShareModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.UserInfoModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.UserLogoutModel;
 import cn.hujw.wanandroid.module.project.mvp.modle.ProjectArticleModel;
@@ -154,6 +155,15 @@ public interface WanAndroidApi {
     @GET("lg/collect/list/{num}/json")
     Observable<BaseData<CollectArticleModel>> getCollectArticle(@Path("num") int num);
 
+    /**
+     * 我的积分明细
+     */
     @GET("/lg/coin/list/{num}/json")
     Observable<BaseData<MineIntegralModel>> getMineIntegral(@Path("num") int num);
+
+    /**
+     * 我的分享
+     */
+    @GET("user/lg/private_articles/{num}/json")
+    Observable<BaseData<MineShareModel>> getShareArticle(@Path("num") int num);
 }

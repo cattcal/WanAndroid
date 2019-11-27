@@ -157,6 +157,13 @@
             android:label="@string/collect_article"
             android:screenOrientation="portrait" />
 
+        <!-- 我的分享 -->
+        <activity
+            android:name=".module.mine.activity.MineShareActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/mine_share"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

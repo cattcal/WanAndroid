@@ -73,11 +73,15 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
 
     @Override
     public void getCollectArticleSuccess(CollectArticleModel data) {
-        mAdapter.addData(data.getDatas());
+        if (data.getTotal()==0){
+            onEmpty();
+        }else{
+            mAdapter.addData(data.getDatas());
+        }
     }
 
     @Override
     public void getCollectArticleError(String msg) {
-
+        onError();
     }
 }
