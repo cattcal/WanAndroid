@@ -3,14 +3,24 @@ package cn.hujw.wanandroid.module.wechat.fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import butterknife.BindView;
 import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -19,6 +29,13 @@ import cn.hujw.wanandroid.module.wechat.mvp.contract.WeChatArticleContract;
 import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
 import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatTabModel;
 import cn.hujw.wanandroid.module.wechat.mvp.presenter.WeChatArticlePresenter;
+import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
+import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
+import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
+import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
+import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+
+import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
 /**
  * 描述：
@@ -26,12 +43,16 @@ import cn.hujw.wanandroid.module.wechat.mvp.presenter.WeChatArticlePresenter;
  * @author hujw
  * @date 2019/11/21 0021
  */
-public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArticleContract.View, BaseRecyclerViewAdapter.OnItemClickListener {
+public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArticleContract.View,
+        BaseRecyclerViewAdapter.OnItemClickListener, CollectContract.View {
 
     private static final String TAG = "WeChatArticleFragment";
 
     @MvpInject
     WeChatArticlePresenter mPresenter;
+
+    @MvpInject
+    CollectPresenter collectPresenter;
 
     @BindView(R.id.srl_wechat_article)
     SmartRefreshLayout mSmartRefreshLayout;
@@ -45,6 +66,10 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
 
     private WeChatTabModel mTabModel;
     private int position = -1;
+    private List<WeChatArticleModel.DatasBean> mData;
+
+    private SmartRefreshUtils mSmartRefreshUtils;
+
 
     public static WeChatArticleFragment newInstance(WeChatTabModel model, int position) {
         WeChatArticleFragment fragment = new WeChatArticleFragment();
@@ -68,29 +93,51 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
             position = args.getInt("position", -1);
         }
 
-        mAdapter = new WeChatArticleAdapter(getContext());
-        mAdapter.setOnItemClickListener(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mAdapter);
+        setSmartRefresh();
 
-        setRefresh();
+        initAdapter();
+
 
     }
 
-    /**
-     * 刷新加载
-     */
-    private void setRefresh() {
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            loadData();
-            refreshLayout.finishRefresh(true);
+    private void initAdapter() {
+        mAdapter = new WeChatArticleAdapter(mData);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
+            }
         });
 
-        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            mCurrentPage++;
-            mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage);
-            refreshLayout.finishLoadMore(true);
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
+                int id = mAdapter.getData().get(position).getId();
+
+                if (!mCollectView.isChecked()) {
+                    collectPresenter.getCollect(id);
+                } else {
+                    collectPresenter.getUnCollect(id);
+                }
+            }
         });
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    /**
+     * 下拉刷新和上拉记载
+     */
+    private void setSmartRefresh() {
+        //初始化
+        mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
+
+        //下拉刷新
+        mSmartRefreshUtils.setRefreshListener(() -> loadData());
+
+        //上拉加载
+        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage));
     }
 
     @Override
@@ -103,26 +150,64 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
      * 加载第一页数据
      */
     private void loadData() {
-        mAdapter.clearData();
-        mCurrentPage = 0;
+        if (mAdapter.getData().size() != 0) {
+            mAdapter.getData().clear();
+        }
+        mCurrentPage = PAGE_START;
         mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage);
     }
 
     @Override
     public void getWeChatArticleSuccess(WeChatArticleModel data) {
-        onComplete();
-        mAdapter.addData(data.getDatas());
 
+        mCurrentPage = data.getCurPage() + PAGE_START;
+        mData = data.getDatas();
+
+        if (data.getTotal() != 0) {
+            onComplete();
+            if (data.getCurPage() == 1) {
+                mAdapter.setNewData(mData);
+            } else {
+                mAdapter.addData(mData);
+            }
+        } else {
+            onEmpty();
+        }
+
+        mSmartRefreshUtils.success();
     }
 
     @Override
     public void getWeChatArticleError(String msg) {
         onError();
         toast(msg);
+        mSmartRefreshUtils.fail();
     }
 
     @Override
     public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
         WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
     }
+
+    @Override
+    public void getCollectSuccess(CollectModel data) {
+        toast("收藏成功");
+    }
+
+    @Override
+    public void getCollectError(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void getUnCollectSuccess(UnCollectModel data) {
+        toast("取消收藏");
+    }
+
+    @Override
+    public void getUnCollectError(String msg) {
+        toast(msg);
+    }
+
+
 }

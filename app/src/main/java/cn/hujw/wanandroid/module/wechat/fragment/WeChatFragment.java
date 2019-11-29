@@ -1,14 +1,21 @@
 package cn.hujw.wanandroid.module.wechat.fragment;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 import com.flyco.tablayout.SlidingTabLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
 import butterknife.BindView;
 import cn.hujw.base.BaseFragmentStateAdapter;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.module.wechat.mvp.contract.WeChatContract;
@@ -54,6 +61,7 @@ public class WeChatFragment extends MvpLazyFragment implements WeChatContract.Vi
                 new BaseFragmentStateAdapter.FragmentCreator<WeChatTabModel, WeChatArticleFragment>() {
             @Override
             public WeChatArticleFragment create(WeChatTabModel data, int pos) {
+
                 return WeChatArticleFragment.newInstance(data, pos);
             }
 
@@ -70,6 +78,10 @@ public class WeChatFragment extends MvpLazyFragment implements WeChatContract.Vi
     @Override
     protected void initData() {
         onLoading();
+        loadData();
+    }
+
+    private void loadData() {
         mPresenter.getWeChatTab();
     }
 
@@ -85,4 +97,5 @@ public class WeChatFragment extends MvpLazyFragment implements WeChatContract.Vi
     public void getWeChatTabError(String msg) {
         onError();
     }
+
 }

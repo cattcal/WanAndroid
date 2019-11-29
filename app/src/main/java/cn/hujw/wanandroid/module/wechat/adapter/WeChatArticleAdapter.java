@@ -1,14 +1,15 @@
 package cn.hujw.wanandroid.module.wechat.adapter;
 
-import android.content.Context;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.annotation.Nullable;
 
-import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+
+import java.util.List;
+
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
 import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
 
 /**
@@ -17,38 +18,20 @@ import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
  * @author hujw
  * @date 2019/11/22 0022
  */
-public class WeChatArticleAdapter extends MyRecyclerViewAdapter<WeChatArticleModel.DatasBean> {
+public class WeChatArticleAdapter extends BaseQuickAdapter<WeChatArticleModel.DatasBean, BaseViewHolder> {
 
-    public WeChatArticleAdapter(Context context) {
-        super(context);
+
+    public WeChatArticleAdapter(@Nullable List<WeChatArticleModel.DatasBean> data) {
+        super(R.layout.item_article, data);
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder();
+    protected void convert(@NonNull BaseViewHolder helper, WeChatArticleModel.DatasBean item) {
+        helper.setText(R.id.item_tv_share_user, !item.getShareUser().equals("") ? item.getShareUser() : item.getAuthor())
+                .setText(R.id.item_tv_nice_share_date, item.getNiceShareDate())
+                .setText(R.id.item_tv_title, item.getTitle())
+                .addOnClickListener(R.id.item_cb_collect)
+                .setChecked(R.id.item_cb_collect, item.isCollect());
     }
 
-    final class ViewHolder extends MyRecyclerViewAdapter.ViewHolder {
-
-        @BindView(R.id.item_tv_share_user)
-        AppCompatTextView mShareUserView;
-
-        @BindView(R.id.item_tv_nice_share_date)
-        AppCompatTextView mNiceShareDateView;
-        @BindView(R.id.item_tv_title)
-        AppCompatTextView mTitleView;
-
-
-        public ViewHolder() {
-            super(R.layout.item_article);
-        }
-
-        @Override
-        public void onBindView(int position) {
-            mShareUserView.setText(!getItem(position).getShareUser().equals("") ? getItem(position).getShareUser() : getItem(position).getAuthor());
-            mNiceShareDateView.setText(getItem(position).getNiceShareDate());
-            mTitleView.setText(getItem(position).getTitle());
-        }
-    }
 }

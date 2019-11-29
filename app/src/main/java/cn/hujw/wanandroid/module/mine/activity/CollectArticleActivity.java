@@ -130,7 +130,7 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     }
 
     private void loadData() {
-        mAdapter.notifyDataSetChanged();
+        mAdapter.getData().clear();
         mCurrentPage = PAGE_START;
         mPresenter.getCollectArticle(mCurrentPage);
     }

@@ -1,14 +1,14 @@
 package cn.hujw.wanandroid.module.home.adapter;
 
-import android.content.Context;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.annotation.Nullable;
 
-import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+
+import java.util.List;
+
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
 import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
 
 /**
@@ -17,31 +17,16 @@ import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
  * @description:
  * @email: hujw_android@163.com
  */
-public class HotAdapter extends MyRecyclerViewAdapter<HotModel> {
+public class HotAdapter extends BaseQuickAdapter<HotModel, BaseViewHolder> {
 
-    public HotAdapter(Context context) {
-        super(context);
+
+    public HotAdapter(@Nullable List<HotModel> data) {
+        super(R.layout.item_system_children, data);
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder();
+    protected void convert(@NonNull BaseViewHolder helper, HotModel item) {
+        helper.setText(R.id.item_tv_children_name, item.getName());
     }
 
-
-    final class ViewHolder extends MyRecyclerViewAdapter.ViewHolder {
-
-        @BindView(R.id.item_tv_children_name)
-        AppCompatTextView mNameView;
-
-        public ViewHolder() {
-            super(R.layout.item_system_children);
-        }
-
-        @Override
-        public void onBindView(int position) {
-            mNameView.setText(getItem(position).getName());
-        }
-    }
 }
