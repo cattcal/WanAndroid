@@ -129,8 +129,8 @@ android {
                     .replaceAll("UMENG_APPKEY_VALUE", "5ddb2f0c3fc1952bcb000982") // 友盟 AppKey
                     .replaceAll("QQ_APPID_VALUE", "101831486") // QQ AppId
                     .replaceAll("QQ_APPKEY_VALUE", "4ffe56c387284e5344c226e33e6300c8") // QQ Key
-                    .replaceAll("WX_APPID_VALUE", "wxdc1e388c3822c80b") // 微信 AppId
-                    .replaceAll("WX_APPKEY_VALUE", "3baf1193c85774b3fd9d18447d76cab0") // 微信 Key
+                    .replaceAll("WX_APPID_VALUE", "wx19f20b2620da5cb9") // 微信 AppId
+                    .replaceAll("WX_APPKEY_VALUE", "188ed7d7b4120b216e9d6d7deadeef08") // 微信 Key
             new File(manifestFile).write(updatedContent, 'UTF-8')
         }
     }
@@ -228,6 +228,7 @@ dependencies {
     // 悬浮窗：https://github.com/getActivity/XToast
     // RxJava: https://github.com/ReactiveX/RxAndroid
     // RecyclerView：https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
     // 二维码：https://github.com/bingoogolapple/BGAQRCode-Android
     // 第三方支付：https://github.com/getActivity/RxPay
     // Log 打印：https://github.com/elvishew/XLog

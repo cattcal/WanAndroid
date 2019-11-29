@@ -1,16 +1,16 @@
 package cn.hujw.wanandroid.module.home.adapter;
 
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
-import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+
+import java.util.List;
+
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
 import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
 
 /**
@@ -19,59 +19,31 @@ import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
  * @author hujw
  * @date 2019/11/20 0020
  */
-public class ArticleAdapter extends MyRecyclerViewAdapter<ArticleModel.DatasBean> {
+public class ArticleAdapter extends BaseQuickAdapter<ArticleModel.DatasBean, BaseViewHolder> {
 
 
-    public ArticleAdapter(Context context) {
-        super(context);
+
+    public ArticleAdapter(@Nullable List<ArticleModel.DatasBean> data) {
+        super(R.layout.item_article, data);
     }
 
-
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder();
-    }
+    protected void convert(@NonNull BaseViewHolder helper, ArticleModel.DatasBean item) {
 
-    final class ViewHolder extends MyRecyclerViewAdapter.ViewHolder {
+        helper.setText(R.id.item_tv_share_user, !item.getShareUser().equals("") ? item.getShareUser() : item.getAuthor())
+                .setText(R.id.item_tv_nice_share_date, item.getNiceShareDate())
+                .setText(R.id.item_tv_title, item.getTitle())
+                .setText(R.id.item_tv_chapter_name, item.getSuperChapterName() + "·" + item.getChapterName())
+                .addOnClickListener(R.id.item_cb_collect);
 
-        @BindView(R.id.item_tv_share_user)
-        AppCompatTextView mShareUserView;
-        @BindView(R.id.item_tv_nice_share_date)
-        AppCompatTextView mNiceShareDateView;
-        @BindView(R.id.item_tv_title)
-        AppCompatTextView mTitleView;
-        @BindView(R.id.item_tv_chapter_name)
-        AppCompatTextView mChapterName;
-
-        @BindView(R.id.item_iv_collect)
-        AppCompatImageView mCollectView;
-
-
-        public ViewHolder() {
-            super(R.layout.item_article);
-        }
-
-        @Override
-        public void onBindView(int position) {
-            mShareUserView.setText(!getItem(position).getShareUser().equals("") ? getItem(position).getShareUser() : getItem(position).getAuthor());
-            mNiceShareDateView.setText(getItem(position).getNiceShareDate());
-            mTitleView.setText(getItem(position).getTitle());
-            mChapterName.setText(getItem(position).getSuperChapterName() + "·" + getItem(position).getChapterName());
-
-            mCollectView.setImageResource(getItem(position).isCollect() ? R.drawable.ico_collect : R.drawable.ico_collect_normal);
-            mCollectView.setOnClickListener(view -> mOnViewItemClickListener.onItemClick(mCollectView, position));
+        if (item.isCollect()) {
+            helper.setChecked(R.id.item_cb_collect, true);
+        } else {
+            helper.setChecked(R.id.item_cb_collect, false);
         }
     }
 
-    public interface OnViewItemClickListener {
-        void onItemClick(View view, int position);
 
-    }
 
-    private OnViewItemClickListener mOnViewItemClickListener;
 
-    public void setmOnViewItemClickListener(OnViewItemClickListener mOnViewItemClickListener) {
-        this.mOnViewItemClickListener = mOnViewItemClickListener;
-    }
 }

@@ -56,12 +56,13 @@
             android:textSize="12sp"
             tools:text="多媒体" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/item_iv_collect"
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/item_cb_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_tv_title"
             android:layout_alignParentRight="true"
+            android:button="@drawable/selector_cb_collect"
             android:src="@drawable/ico_collect_normal" />
 
     </RelativeLayout>

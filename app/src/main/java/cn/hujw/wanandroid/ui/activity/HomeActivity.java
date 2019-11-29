@@ -13,6 +13,7 @@ import butterknife.BindView;
 import cn.hujw.base.BaseFragmentAdapter;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyLazyFragment;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.helper.DoubleClickHelper;
 import cn.hujw.wanandroid.mvp.MvpActivity;
@@ -84,6 +85,7 @@ public class HomeActivity extends MvpActivity implements ViewPager.OnPageChangeL
     public void onPageSelected(int position) {
         switch (position) {
             case 0:
+                new RefreshBus().post();
                 mBottomNavigationView.setSelectedItemId(R.id.menu_home);
                 break;
             case 1:

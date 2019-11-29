@@ -2,15 +2,25 @@ package cn.hujw.wanandroid.module.mine.activity;
 
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.module.home.adapter.ArticleAdapter;
+import cn.hujw.wanandroid.common.Config;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.module.mine.adapter.CollectArticleAdapter;
 import cn.hujw.wanandroid.module.mine.mvp.contract.CollectArticleContract;
 import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
@@ -22,6 +32,9 @@ import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
 import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
+import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+
+import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
 /**
  * @author: hujw
@@ -29,7 +42,7 @@ import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
  * @description: 收藏文章页面
  * @email: hujw_android@163.com
  */
-public class CollectArticleActivity extends MvpActivity implements CollectArticleContract.View, CollectContract.View, ArticleAdapter.OnViewItemClickListener {
+public class CollectArticleActivity extends MvpActivity implements CollectArticleContract.View, CollectContract.View {
 
     @MvpInject
     CollectArticlePresenter mPresenter;
@@ -45,7 +58,10 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     private CollectArticleAdapter mAdapter;
 
     private int mCurrentPage;
-    private AppCompatImageView mCollectView;
+
+    private List<CollectArticleModel.DatasBean> mData;
+
+    private SmartRefreshUtils mSmartRefreshUtils;
     private int position;
 
 
@@ -56,22 +72,56 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
 
     @Override
     protected void initView() {
-        mAdapter = new CollectArticleAdapter(getContext());
-        mAdapter.setOnItemClickListener((recyclerView, itemView, position) -> WebActivity.start(getContext(), mAdapter.getData().get(position).getLink()));
-        mAdapter.setmOnViewItemClickListener(this);
+        //设置下拉刷新和上拉加载
+        setSmartRefresh();
+
+        //初始化适配器
+        initAdapter();
+
+
+    }
+
+    /**
+     * 初始化适配器
+     */
+    private void initAdapter() {
+        mAdapter = new CollectArticleAdapter(mData);
+
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
+            }
+        });
+
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                CollectArticleActivity.this.position = position;
+                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
+                if (mCollectView.isChecked()) {
+                    collectPresenter.getUnCollect(mAdapter.getData().get(position).getOriginId());
+                }
+
+            }
+        });
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+    }
 
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            loadData();
-            refreshLayout.finishRefresh();
-        });
+    /**
+     * 下拉刷新和上拉记载
+     */
+    private void setSmartRefresh() {
+        //初始化
+        mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
 
-        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            mCurrentPage++;
-            mPresenter.getCollectArticle(mCurrentPage);
-            refreshLayout.finishLoadMore();
-        });
+        //下拉刷新
+        mSmartRefreshUtils.setRefreshListener(() -> loadData());
+
+        //上拉加载
+        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getCollectArticle(mCurrentPage));
     }
 
     @Override
@@ -80,23 +130,34 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     }
 
     private void loadData() {
-        mAdapter.clearData();
-        mCurrentPage = 0;
+        mAdapter.notifyDataSetChanged();
+        mCurrentPage = PAGE_START;
         mPresenter.getCollectArticle(mCurrentPage);
     }
 
     @Override
     public void getCollectArticleSuccess(CollectArticleModel data) {
-        if (data.getTotal()==0){
+
+        mCurrentPage = data.getCurPage() + PAGE_START;
+
+        this.mData = data.getDatas();
+        if (data.getTotal() == 0) {
             onEmpty();
-        }else{
-            mAdapter.addData(data.getDatas());
+        } else {
+            if (data.getCurPage() == 1) {
+                mAdapter.setNewData(mData);
+            } else {
+                mAdapter.addData(mData);
+            }
         }
+
+        mSmartRefreshUtils.success();
     }
 
     @Override
     public void getCollectArticleError(String msg) {
         onError();
+        mSmartRefreshUtils.fail();
     }
 
     @Override
@@ -112,9 +173,7 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
-        mCollectView.setImageResource(R.drawable.ico_collect_normal);
-        mAdapter.removeItem(position);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.remove(position);
     }
 
     @Override
@@ -122,13 +181,7 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
 
     }
 
-    /**
-     * 取消收藏
-     */
-    @Override
-    public void onItemClick(View view, int position) {
-        this.position = position;
-        mCollectView = view.findViewById(R.id.item_iv_collect);
-        collectPresenter.getUnCollect(mAdapter.getData().get(position).getOriginId());
-    }
+
+
+
 }

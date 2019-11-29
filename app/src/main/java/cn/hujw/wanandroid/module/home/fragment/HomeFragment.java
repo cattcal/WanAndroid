@@ -1,14 +1,21 @@
 package cn.hujw.wanandroid.module.home.fragment;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +23,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
-import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.titlebar.library.TitleBar;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.module.home.activity.NavigationActivity;
@@ -34,6 +41,9 @@ import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
 import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
+import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+
+import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
 /**
  * @author: hujw
@@ -41,7 +51,7 @@ import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
  * @description: 主页面
  * @email: hujw_android@163.com
  */
-public class HomeFragment extends MvpLazyFragment implements HomeContract.View, CollectContract.View, BaseRecyclerViewAdapter.OnItemClickListener, ArticleAdapter.OnViewItemClickListener {
+public class HomeFragment extends MvpLazyFragment implements HomeContract.View, CollectContract.View {
 
     private static final String TAG = "HomeFragment";
     @MvpInject
@@ -56,18 +66,20 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     AppCompatTextView mSearchView;
     @BindView(R.id.srl_home)
     SmartRefreshLayout mSmartRefreshLayout;
-    @BindView(R.id.bga_banner_home)
-    BGABanner mBanner;
+
     @BindView(R.id.rv_home_list)
     RecyclerView mRecyclerView;
+
+    BGABanner mBanner;
+
+    private SmartRefreshUtils mSmartRefreshUtils;
 
     private ArticleAdapter mAdapter;
     private List<ArticleModel.DatasBean> mData = new ArrayList<>();
 
-    private int mCurrentPage;
-    private List<BannerModel> bannerData = new ArrayList<>();
-    private AppCompatImageView mCollectView;
+    private int mCurrentPage = PAGE_START;
 
+    private List<BannerModel> bannerData = new ArrayList<>();
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -81,31 +93,72 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     protected void initView() {
 
-        mAdapter = new ArticleAdapter(getContext());
-        mAdapter.setOnItemClickListener(this);
-        mAdapter.setmOnViewItemClickListener(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mAdapter);
+        //上拉加载和下拉刷新
+        setSmartRefresh();
 
-        setRefresh();
+        //初始化适配器
+        initAdapter();
+
     }
 
     /**
-     * 刷新
+     * 下拉刷新和上拉记载
      */
-    private void setRefresh() {
-        mSmartRefreshLayout.setOnRefreshListener(refreshLayout -> {
-            //刷新
-            loadData();
-            refreshLayout.finishRefresh(true);
+    private void setSmartRefresh() {
+        //初始化
+        mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
+
+        //下拉刷新
+        mSmartRefreshUtils.setRefreshListener(() -> loadData());
+
+        //上拉加载
+        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getArticle(mCurrentPage));
+    }
+
+    /**
+     * 初始化适配器
+     */
+    private void initAdapter() {
+        mAdapter = new ArticleAdapter(mData);
+
+        //添加头部Banner
+        mAdapter.addHeaderView(getBannerView());
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
+            }
         });
 
-        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
-            //加载更多
-            mCurrentPage++;
-            mPresenter.getArticle(mCurrentPage);
-            refreshLayout.finishLoadMore(true);
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
+                int id = mAdapter.getData().get(position).getId();
+
+                if (!mCollectView.isChecked()) {
+                    collectPresenter.getCollect(id);
+                } else {
+                    collectPresenter.getUnCollect(id);
+                }
+            }
         });
+
+    }
+
+
+    /**
+     * 添加Banner
+     */
+    private View getBannerView() {
+
+        mBanner = (BGABanner) getLayoutInflater().inflate(R.layout.header_banner, (ViewGroup) mRecyclerView.getParent(), false);
+
+        return mBanner;
     }
 
 
@@ -119,9 +172,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
      * 请求第一页的数据
      */
     private void loadData() {
-        bannerData.clear();
-        mAdapter.clearData();
-        mCurrentPage = 0;
+        mCurrentPage = PAGE_START;
         mPresenter.getBanner();
         mPresenter.getArticle(mCurrentPage);
     }
@@ -156,30 +207,33 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     public void getBannerError(String msg) {
         onError();
         toast(msg);
-        mSmartRefreshLayout.finishRefresh(false);
     }
 
     @Override
     public void getArticleSuccess(ArticleModel data) {
+        mCurrentPage = data.getCurPage() + PAGE_START;
         this.mData = data.getDatas();
-        if (mData != null || mData.size() > 0) {
+        if (data.getTotal() != 0) {
             onComplete();
-            mAdapter.addData(data.getDatas());
-            mAdapter.notifyDataSetChanged();
+            if (data.getCurPage() == 1) {
+                mAdapter.setNewData(mData);
+            } else {
+                mAdapter.addData(mData);
+            }
+
+        } else {
+            onEmpty();
         }
+        mSmartRefreshUtils.success();
     }
 
     @Override
     public void getArticleError(String msg) {
         onError();
         toast(msg);
-        mSmartRefreshLayout.finishRefresh(false);
+        mSmartRefreshUtils.fail();
     }
 
-    @Override
-    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
-    }
 
     @OnClick({R.id.tv_home_search, R.id.iv_home_navigation})
     public void onClick(View v) {
@@ -196,8 +250,6 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     public void getCollectSuccess(CollectModel data) {
         toast("收藏成功");
-        mCollectView.setImageResource(R.drawable.ico_collect);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -208,8 +260,6 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
-        mCollectView.setImageResource(R.drawable.ico_collect_normal);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -217,23 +267,11 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     }
 
-    /**
-     * 收藏
-     *
-     * @param view
-     * @param position
-     */
-    @Override
-    public void onItemClick(View view, int position) {
-        mCollectView = view.findViewById(R.id.item_iv_collect);
-        boolean collectFlag = mAdapter.getData().get(position).isCollect();
-
-        if (collectFlag == false) {
-            collectPresenter.getCollect(mAdapter.getData().get(position).getId());
-        } else {
-            collectPresenter.getUnCollect(mAdapter.getData().get(position).getId());
-        }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(RefreshBus refreshBus) {
+        loadData();
     }
+
 }
