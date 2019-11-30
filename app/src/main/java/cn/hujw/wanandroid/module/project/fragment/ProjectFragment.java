@@ -1,4 +1,4 @@
-package cn.hujw.wanandroid.module.project.activity;
+package cn.hujw.wanandroid.module.project.fragment;
 
 import androidx.viewpager.widget.ViewPager;
 

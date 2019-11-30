@@ -18,7 +18,7 @@ import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.helper.DoubleClickHelper;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.other.KeyboardWatcher;
-import cn.hujw.wanandroid.module.project.activity.ProjectFragment;
+import cn.hujw.wanandroid.module.project.fragment.ProjectFragment;
 import cn.hujw.wanandroid.module.system.fragment.SystemFragment;
 import cn.hujw.wanandroid.module.home.fragment.HomeFragment;
 import cn.hujw.wanandroid.module.wechat.fragment.WeChatFragment;

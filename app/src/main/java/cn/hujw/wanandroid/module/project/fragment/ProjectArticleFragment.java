@@ -1,4 +1,4 @@
-package cn.hujw.wanandroid.module.wechat.fragment;
+package cn.hujw.wanandroid.module.project.fragment;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,23 +12,19 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.List;
 
 import butterknife.BindView;
 import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
-import cn.hujw.wanandroid.module.wechat.adapter.WeChatArticleAdapter;
-import cn.hujw.wanandroid.module.wechat.mvp.contract.WeChatArticleContract;
-import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
-import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatTabModel;
-import cn.hujw.wanandroid.module.wechat.mvp.presenter.WeChatArticlePresenter;
+import cn.hujw.wanandroid.module.project.adapter.ProjectArticleAdapter;
+import cn.hujw.wanandroid.module.project.mvp.contract.ProjectArticleContract;
+import cn.hujw.wanandroid.module.project.mvp.modle.ProjectArticleModel;
+import cn.hujw.wanandroid.module.project.mvp.modle.ProjectTabModel;
+import cn.hujw.wanandroid.module.project.mvp.presenter.ProjectArticlePresenter;
 import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
 import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
@@ -43,13 +39,12 @@ import static cn.hujw.wanandroid.common.Config.PAGE_START;
  * @author hujw
  * @date 2019/11/21 0021
  */
-public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArticleContract.View,
-        BaseRecyclerViewAdapter.OnItemClickListener, CollectContract.View {
+public class ProjectArticleFragment extends MvpLazyFragment implements ProjectArticleContract.View, CollectContract.View {
 
     private static final String TAG = "WeChatArticleFragment";
 
     @MvpInject
-    WeChatArticlePresenter mPresenter;
+    ProjectArticlePresenter mPresenter;
 
     @MvpInject
     CollectPresenter collectPresenter;
@@ -59,22 +54,21 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     @BindView(R.id.rv_wechat_article)
     RecyclerView mRecyclerView;
 
-
-    private int mCurrentPage = PAGE_START;
-
-    private WeChatArticleAdapter mAdapter;
-
-    private WeChatTabModel mTabModel;
-    private int position = -1;
-    private List<WeChatArticleModel.DatasBean> mData;
-
     private SmartRefreshUtils mSmartRefreshUtils;
 
 
-    public static WeChatArticleFragment newInstance(WeChatTabModel model, int position) {
-        WeChatArticleFragment fragment = new WeChatArticleFragment();
+    private int mCurrentPage = PAGE_START;
+
+    private ProjectArticleAdapter mAdapter;
+
+    private ProjectTabModel mTabModel;
+    private int position = -1;
+    private List<ProjectArticleModel.DatasBean> mData;
+
+    public static ProjectArticleFragment newInstance(ProjectTabModel model, int position) {
+        ProjectArticleFragment fragment = new ProjectArticleFragment();
         Bundle args = new Bundle(2);
-        args.putSerializable("weChatTabModel", model);
+        args.putSerializable("projectTabModel", model);
         args.putInt("position", position);
         fragment.setArguments(args);
         return fragment;
@@ -89,19 +83,20 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     protected void initView() {
         Bundle args = getArguments();
         if (args != null) {
-            mTabModel = (WeChatTabModel) args.getSerializable("weChatTabModel");
+            mTabModel = (ProjectTabModel) args.getSerializable("projectTabModel");
             position = args.getInt("position", -1);
         }
+
 
         setSmartRefresh();
 
         initAdapter();
 
-
     }
 
+
     private void initAdapter() {
-        mAdapter = new WeChatArticleAdapter(mData);
+        mAdapter = new ProjectArticleAdapter(mData);
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -130,7 +125,6 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
      * 下拉刷新和上拉记载
      */
     private void setSmartRefresh() {
-
         //初始化
         mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
 
@@ -138,7 +132,7 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
         mSmartRefreshUtils.setRefreshListener(() -> loadData());
 
         //上拉加载
-        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage));
+        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getProjectArticle(mCurrentPage, mTabModel.getId() + ""));
     }
 
     @Override
@@ -151,15 +145,16 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
      */
     private void loadData() {
         mCurrentPage = PAGE_START;
-        mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage);
+        mPresenter.getProjectArticle(mCurrentPage, mTabModel.getId() + "");
     }
 
+
     @Override
-    public void getWeChatArticleSuccess(WeChatArticleModel data) {
-
+    public void getProjectArticleSuccess(ProjectArticleModel data) {
         mCurrentPage = data.getCurPage() + PAGE_START;
-        this.mData = data.getDatas();
+        log("page:"+mCurrentPage);
 
+        this.mData = data.getDatas();
         if (data.getTotal() != 0) {
             onComplete();
             if (data.getCurPage() == 1) {
@@ -175,15 +170,10 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     }
 
     @Override
-    public void getWeChatArticleError(String msg) {
+    public void getProjectArticleError(String msg) {
         onError();
         toast(msg);
         mSmartRefreshUtils.fail();
-    }
-
-    @Override
-    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-        WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
     }
 
     @Override
@@ -205,6 +195,4 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     public void getUnCollectError(String msg) {
         toast(msg);
     }
-
-
 }
