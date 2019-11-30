@@ -60,7 +60,7 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     RecyclerView mRecyclerView;
 
 
-    private int mCurrentPage = PAGE_START;
+    private int mCurrentPage = 1;
 
     private WeChatArticleAdapter mAdapter;
 
@@ -138,7 +138,10 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
         mSmartRefreshUtils.setRefreshListener(() -> loadData());
 
         //上拉加载
-        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage));
+        mSmartRefreshUtils.setLoadMoreListener(() -> {
+            mCurrentPage++;
+            mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage);
+        });
     }
 
     @Override
@@ -150,14 +153,13 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
      * 加载第一页数据
      */
     private void loadData() {
-        mCurrentPage = PAGE_START;
+        mCurrentPage = 1;
         mPresenter.getWeChatArticle(mTabModel.getId(), mCurrentPage);
     }
 
     @Override
     public void getWeChatArticleSuccess(WeChatArticleModel data) {
 
-        mCurrentPage = data.getCurPage() + PAGE_START;
         this.mData = data.getDatas();
 
         if (data.getTotal() != 0) {

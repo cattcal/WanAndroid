@@ -57,7 +57,7 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
     private SmartRefreshUtils mSmartRefreshUtils;
 
 
-    private int mCurrentPage = PAGE_START;
+    private int mCurrentPage = 1;
 
     private ProjectArticleAdapter mAdapter;
 
@@ -132,7 +132,10 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
         mSmartRefreshUtils.setRefreshListener(() -> loadData());
 
         //上拉加载
-        mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getProjectArticle(mCurrentPage, mTabModel.getId() + ""));
+        mSmartRefreshUtils.setLoadMoreListener(() -> {
+            mCurrentPage++;
+            mPresenter.getProjectArticle(mCurrentPage, mTabModel.getId() + "");
+        });
     }
 
     @Override
@@ -144,15 +147,14 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
      * 加载第一页数据
      */
     private void loadData() {
-        mCurrentPage = PAGE_START;
+        mCurrentPage = 1;
         mPresenter.getProjectArticle(mCurrentPage, mTabModel.getId() + "");
     }
 
 
     @Override
     public void getProjectArticleSuccess(ProjectArticleModel data) {
-        mCurrentPage = data.getCurPage() + PAGE_START;
-        log("page:"+mCurrentPage);
+        log("page:" + mCurrentPage);
 
         this.mData = data.getDatas();
         if (data.getTotal() != 0) {
