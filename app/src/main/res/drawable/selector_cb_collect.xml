@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 选中状态 -->
+    <item android:drawable="@drawable/ico_collect" android:state_checked="true" />
+
+    <!-- 未选状态 -->
+    <item android:drawable="@drawable/ico_collect_normal" android:state_checked="false" />
+
+
+
+</selector>

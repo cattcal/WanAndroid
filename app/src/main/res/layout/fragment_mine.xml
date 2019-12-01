@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -55,9 +55,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/cd_avatar_big"
-                    tools:text="calf"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="calf" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_user_id"
@@ -67,9 +67,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/cd_avatar_big"
-                    tools:text="用户ID：--"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="用户ID：--" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,69 +77,35 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="20dp">
 
-                    <LinearLayout
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_mine_level"
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:textColor="@color/white"
+                        tools:text="等级\n5" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="等级"
-                            android:textColor="@color/white" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_mine_level"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="5"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_total_points"
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="总积分"
-                            android:textColor="@color/white" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_total_points"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="5"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                        android:textColor="@color/white"
+                        tools:text="总积分\n5" />
 
 
-                    <LinearLayout
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_current_ranking"
                         android:layout_width="0px"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="当前排名"
-                            android:textColor="@color/white" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_current_ranking"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="5"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                        android:textColor="@color/white"
+                        tools:text="当前排名\n5" />
 
                 </LinearLayout>
 
@@ -225,17 +191,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <cn.hujw.widget.layout.SettingBar
-                android:id="@+id/sb_mine_integral"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                app:bar_leftIcon="@drawable/ico_mine_integral"
-                app:bar_leftText="我的积分"
-                app:bar_rightIcon="@drawable/ico_go_black" />
-
-
-            <cn.hujw.widget.layout.SettingBar
                 android:id="@+id/sb_mine_collect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

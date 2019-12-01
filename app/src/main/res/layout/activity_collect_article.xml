@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <cn.hujw.titlebar.library.TitleBar
+        android:id="@+id/tb_collect_article"
         style="@style/TitleBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

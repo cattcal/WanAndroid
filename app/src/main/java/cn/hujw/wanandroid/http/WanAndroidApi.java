@@ -1,28 +1,31 @@
 package cn.hujw.wanandroid.http;
 
 import com.allen.library.bean.BaseData;
-import com.tencent.bugly.crashreport.biz.UserInfoBean;
 
 import java.util.List;
 
-import cn.hujw.wanandroid.model.home.mvp.modle.ArticleModel;
-import cn.hujw.wanandroid.model.home.mvp.modle.BannerModel;
-import cn.hujw.wanandroid.model.home.mvp.modle.HotModel;
-import cn.hujw.wanandroid.model.home.mvp.modle.NavigationModel;
-import cn.hujw.wanandroid.model.login.mvp.model.UserLoginModel;
-import cn.hujw.wanandroid.model.login.mvp.model.UserRegisterModel;
-import cn.hujw.wanandroid.model.mine.mvp.modle.CollectArticleModel;
-import cn.hujw.wanandroid.model.mine.mvp.modle.LeaderboardModel;
-import cn.hujw.wanandroid.model.mine.mvp.modle.PlanetModel;
-import cn.hujw.wanandroid.model.mine.mvp.modle.UserInfoModel;
-import cn.hujw.wanandroid.model.mine.mvp.modle.UserLogoutModel;
-import cn.hujw.wanandroid.model.project.mvp.modle.ProjectArticleModel;
-import cn.hujw.wanandroid.model.project.mvp.modle.ProjectTabModel;
-import cn.hujw.wanandroid.model.home.mvp.modle.SearchArticleModel;
-import cn.hujw.wanandroid.model.wechat.mvp.modle.WeChatArticleModel;
-import cn.hujw.wanandroid.model.wechat.mvp.modle.WeChatTabModel;
-import cn.hujw.wanandroid.model.system.mvp.modle.SystemArticleModel;
-import cn.hujw.wanandroid.model.system.mvp.modle.SystemModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.BannerModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
+import cn.hujw.wanandroid.module.login.mvp.model.UserRegisterModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.MineIntegralModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.LeaderboardModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.PlanetModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.MineShareModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.UserInfoModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.UserLogoutModel;
+import cn.hujw.wanandroid.module.project.mvp.modle.ProjectArticleModel;
+import cn.hujw.wanandroid.module.project.mvp.modle.ProjectTabModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.SearchArticleModel;
+import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatArticleModel;
+import cn.hujw.wanandroid.module.wechat.mvp.modle.WeChatTabModel;
+import cn.hujw.wanandroid.module.system.mvp.modle.SystemArticleModel;
+import cn.hujw.wanandroid.module.system.mvp.modle.SystemModel;
+import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
+import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -139,8 +142,8 @@ public interface WanAndroidApi {
     /**
      * 积分排行榜
      */
-    @GET("coin/rank/1/json")
-    Observable<BaseData<LeaderboardModel>> getLeaderboard();
+    @GET("coin/rank/{num}/json")
+    Observable<BaseData<LeaderboardModel>> getLeaderboard(@Path("num") int num);
 
     /**
      * 获取个人信息
@@ -148,6 +151,31 @@ public interface WanAndroidApi {
     @GET("lg/coin/userinfo/json")
     Observable<BaseData<UserInfoModel>> getUserInfo();
 
+    /**
+     * 收藏文章列表
+     */
     @GET("lg/collect/list/{num}/json")
     Observable<BaseData<CollectArticleModel>> getCollectArticle(@Path("num") int num);
+
+    /**
+     * 我的积分明细
+     */
+    @GET("/lg/coin/list/{num}/json")
+    Observable<BaseData<MineIntegralModel>> getMineIntegral(@Path("num") int num);
+
+    /**
+     * 我的分享
+     */
+    @GET("user/lg/private_articles/{num}/json")
+    Observable<BaseData<MineShareModel>> getShareArticle(@Path("num") int num);
+
+
+    /**
+     * 收藏
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseData<CollectModel>> getCollect(@Path("id") int id);
+
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<BaseData<UnCollectModel>> getUnCollect(@Path("id") int id);
 }

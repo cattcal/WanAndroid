@@ -16,7 +16,6 @@ import java.util.List;
 import butterknife.BindView;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyActivity;
-import cn.hujw.wanandroid.model.login.activity.LoginActivity;
 import cn.hujw.wanandroid.other.AppConfig;
 
 /**

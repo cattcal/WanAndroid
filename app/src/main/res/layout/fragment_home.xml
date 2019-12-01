@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".model.home.fragment.HomeFragment">
+    tools:context=".module.home.fragment.HomeFragment">
 
     <cn.hujw.titlebar.library.TitleBar
         android:id="@+id/tb_home"
@@ -82,22 +82,18 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <cn.bingoogolapple.bgabanner.BGABanner
-                        android:id="@+id/bga_banner_home"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        app:banner_pageChangeDuration="1000"
-                        app:banner_pointAutoPlayAble="true"
-                        app:banner_pointContainerBackground="@android:color/transparent"
-                        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-                        app:banner_pointTopBottomMargin="15dp"
-                        app:banner_transitionEffect="alpha" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_home_list"
+                    <cn.hujw.widget.layout.HintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/bg_color" />
+                        android:layout_height="match_parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_home_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/bg_color" />
+
+                    </cn.hujw.widget.layout.HintLayout>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -65,47 +65,60 @@
 
         <!-- 登录界面 -->
         <activity
-            android:name=".model.login.activity.LoginActivity"
+            android:name=".module.login.activity.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 
         <!-- 注册界面 -->
         <activity
-            android:name=".model.login.activity.RegisterActivity"
+            android:name=".module.login.activity.RegisterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <!-- 图片选择 -->
+        <activity
+            android:name=".ui.activity.PhotoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/photo_title"
+            android:screenOrientation="portrait" />
+
+        <!-- 查看大图 -->
+        <activity
+            android:name=".ui.activity.ImageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 
         <!-- 设置界面 -->
         <activity
-            android:name=".model.mine.activity.SettingActivity"
+            android:name=".module.mine.activity.SettingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/setting_title"
             android:screenOrientation="portrait" />
 
         <!-- 体系文章 -->
         <activity
-            android:name=".model.home.activity.NavigationActivity"
+            android:name=".module.home.activity.NavigationActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/navigation"
             android:screenOrientation="portrait" />
 
         <!-- 体系文章 -->
         <activity
-            android:name=".model.system.activity.SystemArticleActivity"
+            android:name=".module.system.activity.SystemArticleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/system_article"
             android:screenOrientation="portrait" />
 
         <!-- 玩转星球 -->
         <activity
-            android:name=".model.mine.activity.PlanetActivity"
+            android:name=".module.mine.activity.PlanetActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/play_planet"
             android:screenOrientation="portrait" />
 
         <!-- 搜索 -->
         <activity
-            android:name=".model.home.activity.SearchActivity"
+            android:name=".module.home.activity.SearchActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
 
@@ -116,18 +129,39 @@
             android:label="@string/web_title"
             android:screenOrientation="portrait" />
 
+        <!-- 积分排行榜 -->
+        <activity
+            android:name=".module.mine.activity.LeaderboardActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/leaderboard"
+            android:screenOrientation="portrait" />
+
+        <!-- 我的积分 -->
+        <activity
+            android:name=".module.mine.activity.MineIntegralActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/mine_integral"
+            android:screenOrientation="portrait" />
+
         <!-- 我的收藏 -->
         <activity
-            android:name=".model.mine.activity.CollectActivity"
+            android:name=".module.mine.activity.CollectActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/mine_collect"
             android:screenOrientation="portrait" />
 
         <!-- 收藏文章 -->
         <activity
-            android:name=".model.mine.activity.CollectArticleActivity"
+            android:name=".module.mine.activity.CollectArticleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/collect_article"
+            android:screenOrientation="portrait" />
+
+        <!-- 我的分享 -->
+        <activity
+            android:name=".module.mine.activity.MineShareActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/mine_share"
             android:screenOrientation="portrait" />
 
     </application>
