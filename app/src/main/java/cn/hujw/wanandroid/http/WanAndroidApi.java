@@ -69,6 +69,9 @@ public interface WanAndroidApi {
     @GET("banner/json")
     Observable<BaseData<List<BannerModel>>> getBanner();
 
+
+    @GET("article/top/json")
+    Observable<BaseData<List<ArticleModel.DatasBean>>> getTopArticle();
     /**
      * 首页文章列表
      */

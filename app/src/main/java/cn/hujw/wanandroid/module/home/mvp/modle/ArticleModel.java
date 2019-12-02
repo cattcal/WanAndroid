@@ -54,6 +54,24 @@ public final class ArticleModel extends MvpModel<HomeOnListener> {
                 });
     }
 
+    public void getTopArticle() {
+        // 为了省事，这里直接回调成功
+        ApiHelper.getWanAndroidApi()
+                .getTopArticle()
+                .compose(Transformer.switchSchedulers())
+                .subscribe(new DataObserver<List<ArticleModel.DatasBean>>() {
+                    @Override
+                    protected void onError(String errorMsg) {
+                        getListener().onTopArticleFail(errorMsg);
+                    }
+
+                    @Override
+                    protected void onSuccess(List<ArticleModel.DatasBean> data) {
+                        getListener().onTopArticleSucceed(data);
+                    }
+                });
+    }
+
     public int getCurPage() {
         return curPage;
     }

@@ -17,44 +17,77 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/item_tv_share_user"
+        <LinearLayout
+            android:id="@+id/ll_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black70"
-            android:textSize="12sp"
-            tools:text="分享人" />
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_tv_top"
+                android:layout_width="wrap_content"
+                android:text="置顶"
+                android:visibility="gone"
+                android:textColor="@color/red"
+                android:layout_marginRight="5dp"
+                android:textSize="12sp"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_tv_chapter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                tools:text="分享人" />
+        </LinearLayout>
+
+
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/item_tv_nice_share_date"
+            android:id="@+id/item_tv_share_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/black70"
             android:textSize="12sp"
-            tools:text="分享时间" />
+            tools:text="多媒体" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginTop="5dp"
             android:id="@+id/item_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_tv_share_user"
+            android:layout_below="@+id/ll_user"
+            android:layout_marginTop="5dp"
             android:textColor="@color/textColor"
             android:textSize="14sp"
             tools:text="标题" />
 
+
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_tv_new"
+            android:layout_width="wrap_content"
+            android:text="新"
+            android:visibility="gone"
             android:layout_marginTop="5dp"
-            android:id="@+id/item_tv_chapter_name"
+            android:layout_marginRight="5dp"
+            android:textSize="12sp"
+            android:layout_below="@+id/item_tv_title"
+            android:textColor="@color/colorAccent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_tv_nice_share_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_tv_title"
-            android:textColor="@color/gray"
+            android:layout_toRightOf="@+id/item_tv_new"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/black70"
             android:textSize="12sp"
-            tools:text="多媒体" />
+            tools:text="分享时间" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/item_cb_collect"

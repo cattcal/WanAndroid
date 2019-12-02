@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0px">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_tv_chapter_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black70"
+            android:textSize="12sp"
+            tools:text="多媒体" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_pic_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_tv_share_user"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="0px">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/item_iv_pic"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/item_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@color/textColor"
+                    android:textSize="14sp"
+                    tools:text="标题" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/item_tv_desc"
+                    android:ellipsize="end"
+                    android:lines="4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/textColorHint"
+                    android:textSize="12sp"
+                    tools:text="描述" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_tv_share_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black70"
+            android:textSize="12sp"
+            tools:text="分享人" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_tv_nice_share_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_pic_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            tools:text="分享时间" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/item_cb_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_pic_content"
+            android:layout_alignParentRight="true"
+            android:button="@drawable/selector_cb_collect"
+            android:src="@drawable/ico_collect_normal" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

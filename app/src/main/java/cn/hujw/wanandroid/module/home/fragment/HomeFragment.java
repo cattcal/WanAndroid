@@ -80,6 +80,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     private int mCurrentPage = PAGE_START;
 
     private List<BannerModel> bannerData = new ArrayList<>();
+    private List<ArticleModel.DatasBean> topList;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -213,9 +214,11 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     public void getArticleSuccess(ArticleModel data) {
         mCurrentPage = data.getCurPage() + PAGE_START;
         this.mData = data.getDatas();
+
         if (data.getTotal() != 0) {
             onComplete();
             if (data.getCurPage() == 1) {
+                mData.addAll(0,topList);
                 mAdapter.setNewData(mData);
             } else {
                 mAdapter.addData(mData);
@@ -232,6 +235,16 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
         onError();
         toast(msg);
         mSmartRefreshUtils.fail();
+    }
+
+    @Override
+    public void getTopArticleSuccess(List<ArticleModel.DatasBean> data) {
+        topList = data;
+    }
+
+    @Override
+    public void getTopArticleError(String msg) {
+
     }
 
 

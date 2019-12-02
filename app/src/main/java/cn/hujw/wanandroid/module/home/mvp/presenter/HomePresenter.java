@@ -25,6 +25,8 @@ public final class HomePresenter extends MvpPresenter<HomeContract.View>
     ArticleModel articleModel;
 
 
+
+
     @Override
     public void getBanner() {
         bannerModel.setListener(this);
@@ -34,8 +36,10 @@ public final class HomePresenter extends MvpPresenter<HomeContract.View>
     @Override
     public void getArticle(int num) {
         articleModel.setListener(this);
+        articleModel.getTopArticle();
         articleModel.getArticle(num);
     }
+
 
     @Override
     public void onBannerSucceed(List<BannerModel> data) {
@@ -45,6 +49,16 @@ public final class HomePresenter extends MvpPresenter<HomeContract.View>
     @Override
     public void onBannerFail(String msg) {
         getView().getBannerError(msg);
+    }
+
+    @Override
+    public void onTopArticleSucceed(List<ArticleModel.DatasBean> data) {
+        getView().getTopArticleSuccess(data);
+    }
+
+    @Override
+    public void onTopArticleFail(String msg) {
+        getView().getTopArticleError(msg);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package cn.hujw.wanandroid.module.home.adapter;
 
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatCheckBox;
@@ -22,7 +24,6 @@ import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
 public class ArticleAdapter extends BaseQuickAdapter<ArticleModel.DatasBean, BaseViewHolder> {
 
 
-
     public ArticleAdapter(@Nullable List<ArticleModel.DatasBean> data) {
         super(R.layout.item_article, data);
     }
@@ -30,20 +31,19 @@ public class ArticleAdapter extends BaseQuickAdapter<ArticleModel.DatasBean, Bas
     @Override
     protected void convert(@NonNull BaseViewHolder helper, ArticleModel.DatasBean item) {
 
+        helper.itemView.findViewById(R.id.item_tv_new).setVisibility(item.isFresh() ? View.VISIBLE : View.GONE);
+
+        helper.itemView.findViewById(R.id.item_tv_top).setVisibility(item.getType() == 1 ? View.VISIBLE : View.GONE);
+
         helper.setText(R.id.item_tv_share_user, !item.getShareUser().equals("") ? item.getShareUser() : item.getAuthor())
                 .setText(R.id.item_tv_nice_share_date, item.getNiceShareDate())
                 .setText(R.id.item_tv_title, item.getTitle())
                 .setText(R.id.item_tv_chapter_name, item.getSuperChapterName() + "·" + item.getChapterName())
+                .setChecked(R.id.item_cb_collect, item.isCollect())
                 .addOnClickListener(R.id.item_cb_collect);
 
-        if (item.isCollect()) {
-            helper.setChecked(R.id.item_cb_collect, true);
-        } else {
-            helper.setChecked(R.id.item_cb_collect, false);
-        }
+
     }
-
-
 
 
 }

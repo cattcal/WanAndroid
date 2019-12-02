@@ -96,7 +96,7 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
 
 
     private void initAdapter() {
-        mAdapter = new ProjectArticleAdapter(mData);
+        mAdapter = new ProjectArticleAdapter( mData);
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {

@@ -17,6 +17,10 @@ public interface HomeOnListener {
 
     void onBannerFail(String msg);
 
+    void onTopArticleSucceed(List<ArticleModel.DatasBean> data);
+
+    void onTopArticleFail(String msg);
+
     void onArticleSucceed(ArticleModel data);
 
     void onArticleFail(String msg);

@@ -23,6 +23,10 @@ public final class HomeContract {
         void getArticleSuccess(ArticleModel data);
 
         void getArticleError(String msg);
+
+        void getTopArticleSuccess(List<ArticleModel.DatasBean> data);
+
+        void getTopArticleError(String msg);
     }
 
     public interface Presenter {
@@ -30,5 +34,6 @@ public final class HomeContract {
         void getBanner();
 
         void getArticle(int num);
+
     }
 }
