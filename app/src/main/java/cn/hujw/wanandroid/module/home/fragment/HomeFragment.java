@@ -215,10 +215,13 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
         mCurrentPage = data.getCurPage() + PAGE_START;
         this.mData = data.getDatas();
 
+
         if (data.getTotal() != 0) {
             onComplete();
             if (data.getCurPage() == 1) {
-                mData.addAll(0,topList);
+                if (topList.size() > 0 || topList != null) {
+                    mData.addAll(0, topList);
+                }
                 mAdapter.setNewData(mData);
             } else {
                 mAdapter.addData(mData);
@@ -279,7 +282,6 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     public void getUnCollectError(String msg) {
 
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

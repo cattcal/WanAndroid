@@ -3,7 +3,6 @@ package cn.hujw.wanandroid.module.home.activity;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,15 +15,13 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.module.home.adapter.SearchHistoryAdapter;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -58,13 +55,20 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     @BindView(R.id.et_home_search)
     AppCompatEditText mSearchView;
 
-    @BindView(R.id.rv_search_hot)
-    RecyclerView mHotRecyclerView;
+
     @BindView(R.id.rv_search_article)
     RecyclerView mSearchArticleRecyclerView;
 
+    @BindView(R.id.rv_search_hot)
+    RecyclerView mHotRecyclerView;
     @BindView(R.id.ll_search_hot)
     LinearLayout mHotLayout;
+
+    @BindView(R.id.rv_search_history)
+    RecyclerView mHistoryRecyclerView;
+    @BindView(R.id.ll_search_history)
+    LinearLayout mHistoryLayout;
+
     @BindView(R.id.srl_search)
     SmartRefreshLayout mSmartRefreshLayout;
 
@@ -73,10 +77,13 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
 
     private HotAdapter mHotAdapter;
     private SearchArticleAdapter mAdapter;
+    private SearchHistoryAdapter mHistoryAdapter;
 
     private int mCurrentPage;
     private List<HotModel> mHotData;
     private List<SearchArticleModel.DatasBean> mData;
+
+
 
 
     @Override
@@ -86,6 +93,8 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
 
     @Override
     protected void initView() {
+
+        mHistoryLayout.setVisibility(View.GONE);
 
         setSmartRefresh();
 
@@ -110,6 +119,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
         mSearchArticleRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                 WebActivity.start(getContext(), mAdapter.getData().get(position).getLink());
             }
         });
