@@ -19,4 +19,8 @@ public final class ApiHelper {
     public static WanAndroidApi getWanAndroidApi() {
         return RxHttpUtils.createApi(AppUrlConfig.BASE_KET, AppUrlConfig.BASE_URL, WanAndroidApi.class);
     }
+
+    public static GankApi getGankApi() {
+        return RxHttpUtils.createApi(AppUrlConfig.BASE_GANK_KET, AppUrlConfig.BASE_GANK_URL, GankApi.class);
+    }
 }

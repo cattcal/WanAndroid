@@ -19,6 +19,7 @@ import cn.hujw.wanandroid.module.mine.mvp.modle.UserLogoutModel;
 import cn.hujw.wanandroid.module.mine.mvp.presenter.LogoutPresenter;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
+import cn.hujw.wanandroid.ui.activity.WebActivity;
 import cn.hujw.wanandroid.ui.dialog.MessageDialog;
 import cn.hujw.widget.layout.SettingBar;
 
@@ -98,6 +99,7 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                         }).show();
                 break;
             case R.id.sb_setting_agreement:
+                WebActivity.start(getContext(),"https://www.035ye.com");
                 break;
 
         }

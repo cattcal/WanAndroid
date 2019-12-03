@@ -164,6 +164,14 @@
             android:label="@string/mine_share"
             android:screenOrientation="portrait" />
 
+
+        <!-- 福利 -->
+        <activity
+            android:name=".module.mine.activity.FuliActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="@string/mine_fuli"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -18,4 +18,9 @@ public class Config {
      */
     public static final int PAGE_START = 0;
 
+    /**
+     * 列表一页默认条目数
+     */
+    public static final int ONE_PAGE_COUNT_DEFAULT = 10;
+
 }

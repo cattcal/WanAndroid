@@ -23,6 +23,7 @@ import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
+import cn.hujw.wanandroid.module.mine.activity.FuliActivity;
 import cn.hujw.wanandroid.module.mine.activity.LeaderboardActivity;
 import cn.hujw.wanandroid.module.mine.activity.MineIntegralActivity;
 import cn.hujw.wanandroid.module.mine.activity.MineShareActivity;
@@ -145,7 +146,8 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             R.id.sb_mine_collect,
             R.id.sb_mine_share,
             R.id.sb_mine_planet,
-            R.id.sb_mine_website})
+            R.id.sb_mine_website,
+    R.id.sb_mine_fuli})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_name:
@@ -205,6 +207,9 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             case R.id.sb_mine_website:
                 break;
 
+            case R.id.sb_mine_fuli:
+                startActivity(FuliActivity.class);
+                break;
         }
     }
 

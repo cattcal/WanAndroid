@@ -6,6 +6,7 @@ import com.allen.library.RxHttpUtils;
 import com.allen.library.config.OkHttpConfig;
 import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.library.interfaces.BuildHeadersListener;
+import com.allen.library.manage.RxUrlManager;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -64,7 +65,7 @@ public final class RxHttpUtilsManager {
                 .build();
 
         //一个项目多url的配置方法(这种写法的前提是事先已经知道所有的baseUrl了)
-        //RxUrlManager.getInstance().setMultipleUrl(urlMap);
+        RxUrlManager.getInstance().setMultipleUrl(AppUrlConfig.getAllUrl());
         //如果是动态从服务器获取的baseUrl的话也可以添加进来
         //key是对url做区分使用，value就是服务器下发的baseUrl（baseUrl必须以"xxx/"斜杠结尾，retrofit的要求）
         //RxUrlManager.getInstance().addUrl("urlKey", "urlValue");

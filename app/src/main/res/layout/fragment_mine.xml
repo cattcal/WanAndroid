@@ -227,6 +227,13 @@
                 app:bar_leftText="常用网站"
                 app:bar_rightIcon="@drawable/ico_go_black" />
 
+            <cn.hujw.widget.layout.SettingBar
+                android:id="@+id/sb_mine_fuli"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_leftIcon="@drawable/ico_mine_fuli"
+                app:bar_leftText="福利"
+                app:bar_rightIcon="@drawable/ico_go_black" />
 
         </LinearLayout>
 
