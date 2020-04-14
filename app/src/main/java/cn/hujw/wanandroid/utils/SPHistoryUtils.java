@@ -10,6 +10,9 @@ public class SPHistoryUtils {
     private static final String HISTORY = "history";
 
     public static void saveSearchHistory(String inputText) {
+        if (inputText.isEmpty()){
+            return;
+        }
         SPUtils instance = SPUtils.getInstance();
         String history = instance.get(HISTORY, "");  //获取之前保存的历史记录
         String[] temHistory = history.split(","); //逗号截取 保存在数组中
