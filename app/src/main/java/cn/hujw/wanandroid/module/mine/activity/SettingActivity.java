@@ -99,7 +99,7 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                         }).show();
                 break;
             case R.id.sb_setting_agreement:
-                WebActivity.start(getContext(),"https://www.035ye.com");
+//                WebActivity.start(getContext(),"https://www.035ye.com");
                 break;
 
         }

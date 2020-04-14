@@ -1,10 +1,12 @@
 package cn.hujw.wanandroid.module.home.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,9 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,6 +40,8 @@ import cn.hujw.wanandroid.ui.mvp.contract.CollectContract;
 import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
+import cn.hujw.wanandroid.utils.SPHistoryUtils;
+import cn.hujw.wanandroid.utils.SPUtils;
 import cn.hujw.wanandroid.utils.SmartRefreshUtils;
 
 import static cn.hujw.wanandroid.common.Config.PAGE_START;
@@ -68,6 +75,8 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     RecyclerView mHistoryRecyclerView;
     @BindView(R.id.ll_search_history)
     LinearLayout mHistoryLayout;
+    @BindView(R.id.tv_clear_history)
+    AppCompatTextView mClearHistory;
 
     @BindView(R.id.srl_search)
     SmartRefreshLayout mSmartRefreshLayout;
@@ -82,8 +91,8 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     private int mCurrentPage;
     private List<HotModel> mHotData;
     private List<SearchArticleModel.DatasBean> mData;
-
-
+    private SPUtils instance;
+    private String inputText;
 
 
     @Override
@@ -100,6 +109,37 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
 
         initAdapter();
 
+        //显示历史记录
+        showHistory();
+
+
+    }
+
+    private void showHistory() {
+        List<String> historyList = SPHistoryUtils.getSearchHistory();
+
+        if (historyList.size() > 0) {
+            mHistoryLayout.setVisibility(View.VISIBLE);
+            mHistoryAdapter = new SearchHistoryAdapter(historyList);
+            FlexboxLayoutManager manager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
+
+            mHistoryRecyclerView.setLayoutManager(manager);
+            mHistoryRecyclerView.setAdapter(mHistoryAdapter);
+
+            mHistoryAdapter.setOnItemClickListener((recyclerView, itemView, position) -> {
+                mSearchView.setText(mHistoryAdapter.getData().get(position));
+                loadData();
+            });
+        } else {
+            mHistoryLayout.setVisibility(View.GONE);
+        }
+        mClearHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SPUtils.getInstance().clear();
+                mHistoryLayout.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void initAdapter() {
@@ -108,9 +148,12 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
             onComplete();
 
             mSearchView.setText(mHotAdapter.getData().get(position).getName() + "");
+            SPHistoryUtils.saveSearchHistory(mSearchView.getText().toString());
+
             loadData();
 
         });
+
         FlexboxLayoutManager manager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
         mHotRecyclerView.setLayoutManager(manager);
         mHotRecyclerView.setAdapter(mHotAdapter);
@@ -187,6 +230,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
         if (data.getTotal() != 0) {
             onComplete();
             mHotLayout.setVisibility(View.GONE);
+            mHistoryLayout.setVisibility(View.GONE);
             mSmartRefreshLayout.setVisibility(View.VISIBLE);
 
             if (data.getCurPage() == 1) {
@@ -213,6 +257,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_home_search:
+                SPHistoryUtils.saveSearchHistory(mSearchView.getText().toString());
                 loadData();
                 break;
         }
