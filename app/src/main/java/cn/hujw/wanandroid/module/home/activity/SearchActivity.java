@@ -257,6 +257,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_home_search:
+                //缓存搜索记录
                 SPHistoryUtils.saveSearchHistory(mSearchView.getText().toString());
                 loadData();
                 break;
