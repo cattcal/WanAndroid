@@ -80,7 +80,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     private int mCurrentPage = PAGE_START;
 
     private List<BannerModel> bannerData = new ArrayList<>();
-    private List<ArticleModel.DatasBean> topList;
+    private List<ArticleModel.DatasBean> topList=new ArrayList<>();
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
