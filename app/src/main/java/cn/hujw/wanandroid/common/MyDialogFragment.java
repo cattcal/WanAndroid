@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentActivity;
 
-import com.hjq.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import cn.hujw.base.BaseDialogFragment;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
  * @author: hujw

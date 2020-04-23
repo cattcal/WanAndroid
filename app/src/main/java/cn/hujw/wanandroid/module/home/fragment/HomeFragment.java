@@ -5,10 +5,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -26,7 +28,9 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.titlebar.library.TitleBar;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
+import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.module.home.activity.NavigationActivity;
@@ -80,7 +84,11 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     private int mCurrentPage = PAGE_START;
 
     private List<BannerModel> bannerData = new ArrayList<>();
-    private List<ArticleModel.DatasBean> topList=new ArrayList<>();
+    private List<ArticleModel.DatasBean> topList = new ArrayList<>();
+    private SPCookieStore mCookieStore;
+    private AppCompatImageView mCollectView;
+    private int mId;
+    private int mPosition;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -138,14 +146,26 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
-                int id = mAdapter.getData().get(position).getId();
+                mCollectView = view.findViewById(R.id.item_cb_collect);
 
-                if (!mCollectView.isChecked()) {
-                    collectPresenter.getCollect(id);
+                mPosition = position;
+
+                mId = mAdapter.getData().get(position).getId();
+
+                mCookieStore = new SPCookieStore(MyApplication.getContext());
+
+                if (mCookieStore.getAllCookie().size() == 0) {
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
                 } else {
-                    collectPresenter.getUnCollect(id);
+                    if (mAdapter.getData().get(position).isCollect() != true) {
+                        collectPresenter.getCollect(mId);
+                    } else {
+                        collectPresenter.getUnCollect(mId);
+                    }
+
                 }
+
             }
         });
 
@@ -266,6 +286,12 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     public void getCollectSuccess(CollectModel data) {
         toast("收藏成功");
+        if (mAdapter.getData().get(mPosition).isCollect() == false) {
+            mAdapter.getData().get(mPosition).setCollect(true);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect);
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
@@ -276,6 +302,12 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
+        if (mAdapter.getData().get(mPosition).isCollect() == true) {
+            mAdapter.getData().get(mPosition).setCollect(false);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+            mAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override

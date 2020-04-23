@@ -32,7 +32,7 @@ public class CollectArticleAdapter extends BaseQuickAdapter<CollectArticleModel.
                 .setText(R.id.item_tv_nice_share_date, item.getNiceDate())
                 .setText(R.id.item_tv_title, Html.fromHtml(item.getTitle()))
                 .addOnClickListener(R.id.item_cb_collect)
-                .setChecked(R.id.item_cb_collect, true);
+                .setImageResource(R.id.item_cb_collect, R.drawable.ico_collect);
 
     }
 

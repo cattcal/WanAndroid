@@ -12,11 +12,11 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.IdRes;
 import androidx.annotation.StringRes;
 
-import com.hjq.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import cn.hujw.base.BaseListViewAdapter;
 import cn.hujw.image.ImageLoader;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
  * @author: hujw

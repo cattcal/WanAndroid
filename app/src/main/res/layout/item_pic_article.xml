@@ -102,13 +102,12 @@
             android:textSize="12sp"
             tools:text="分享时间" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_cb_collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_pic_content"
             android:layout_alignParentRight="true"
-            android:button="@drawable/selector_cb_collect"
             android:src="@drawable/ico_collect_normal" />
 
     </RelativeLayout>

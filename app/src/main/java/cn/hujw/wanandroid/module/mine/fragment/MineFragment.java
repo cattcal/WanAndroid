@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
@@ -102,7 +103,7 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     @Override
     protected void initData() {
 
-        cookieStore = new SPCookieStore(getContext());
+        cookieStore = new SPCookieStore(MyApplication.getContext());
 
         for (int i = 0; i < cookieStore.getAllCookie().size(); i++) {
             log("SPCookieStore " + cookieStore.getAllCookie().get(i) + "");

@@ -36,7 +36,7 @@ public class ProjectArticleAdapter extends BaseQuickAdapter<ProjectArticleModel.
                 .setText(R.id.item_tv_desc, "\t\t\t\t"+item.getDesc())
                 .setText(R.id.item_tv_chapter_name, item.getSuperChapterName() + "·" + item.getChapterName())
                 .addOnClickListener(R.id.item_cb_collect)
-                .setChecked(R.id.item_cb_collect, item.isCollect());
+                .setImageResource(R.id.item_cb_collect, item.isCollect() ? R.drawable.ico_collect : R.drawable.ico_collect_normal);
         ImageLoader.with(mContext).load(item.getEnvelopePic()).into(helper.itemView.findViewById(R.id.item_iv_pic));
     }
 

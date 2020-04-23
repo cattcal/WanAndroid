@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -17,6 +19,8 @@ import java.util.List;
 import butterknife.BindView;
 import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.common.MyApplication;
+import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -64,6 +68,9 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
     private ProjectTabModel mTabModel;
     private int position = -1;
     private List<ProjectArticleModel.DatasBean> mData;
+    private AppCompatImageView mCollectView;
+    private int mPosition;
+    private SPCookieStore mCookieStore;
 
     public static ProjectArticleFragment newInstance(ProjectTabModel model, int position) {
         ProjectArticleFragment fragment = new ProjectArticleFragment();
@@ -96,7 +103,7 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
 
 
     private void initAdapter() {
-        mAdapter = new ProjectArticleAdapter( mData);
+        mAdapter = new ProjectArticleAdapter(mData);
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -107,13 +114,21 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
+                mCollectView = view.findViewById(R.id.item_cb_collect);
+                mPosition = position;
                 int id = mAdapter.getData().get(position).getId();
 
-                if (!mCollectView.isChecked()) {
-                    collectPresenter.getCollect(id);
+                mCookieStore = new SPCookieStore(MyApplication.getContext());
+
+                if (mCookieStore.getAllCookie().size() == 0) {
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
                 } else {
-                    collectPresenter.getUnCollect(id);
+                    if (mAdapter.getData().get(position).isCollect() != true) {
+                        collectPresenter.getCollect(id);
+                    } else {
+                        collectPresenter.getUnCollect(id);
+                    }
                 }
             }
         });
@@ -181,6 +196,11 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
     @Override
     public void getCollectSuccess(CollectModel data) {
         toast("收藏成功");
+        if (mAdapter.getData().get(mPosition).isCollect() == false) {
+            mAdapter.getData().get(mPosition).setCollect(true);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -191,6 +211,11 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
+        if (mAdapter.getData().get(mPosition).isCollect() == true) {
+            mAdapter.getData().get(mPosition).setCollect(false);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

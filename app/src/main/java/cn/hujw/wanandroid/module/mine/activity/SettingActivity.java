@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import cn.hujw.base.BaseDialog;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.helper.CacheDataManager;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
@@ -54,7 +55,7 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
         // 获取应用缓存大小
         mCleanCacheView.setRightText(CacheDataManager.getTotalCacheSize(this));
 
-        cookieStore = new SPCookieStore(getContext());
+        cookieStore = new SPCookieStore(MyApplication.getContext());
 
     }
 
@@ -70,6 +71,7 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                             @Override
                             public void onConfirm(BaseDialog dialog) {
                                 mPresenter.getLogout();
+
                             }
 
                             @Override

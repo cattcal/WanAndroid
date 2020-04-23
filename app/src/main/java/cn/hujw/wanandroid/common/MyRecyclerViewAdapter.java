@@ -7,13 +7,13 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.hjq.toast.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import cn.hujw.base.BaseRecyclerViewAdapter;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
  * @author: hujw

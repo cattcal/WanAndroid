@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -20,7 +22,9 @@ import java.util.List;
 import butterknife.BindView;
 import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
+import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
+import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -69,6 +73,9 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     private List<WeChatArticleModel.DatasBean> mData;
 
     private SmartRefreshUtils mSmartRefreshUtils;
+    private AppCompatImageView mCollectView;
+    private int mPosition;
+    private SPCookieStore mCookieStore;
 
 
     public static WeChatArticleFragment newInstance(WeChatTabModel model, int position) {
@@ -112,14 +119,23 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
+                mCollectView = view.findViewById(R.id.item_cb_collect);
+                mPosition = position;
                 int id = mAdapter.getData().get(position).getId();
 
-                if (!mCollectView.isChecked()) {
-                    collectPresenter.getCollect(id);
-                } else {
-                    collectPresenter.getUnCollect(id);
+                mCookieStore = new SPCookieStore(MyApplication.getContext());
+
+                if (mCookieStore.getAllCookie().size() == 0) {
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
+                }else{
+                    if (mAdapter.getData().get(position).isCollect() != true) {
+                        collectPresenter.getCollect(id);
+                    } else {
+                        collectPresenter.getUnCollect(id);
+                    }
                 }
+
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -191,6 +207,13 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     @Override
     public void getCollectSuccess(CollectModel data) {
         toast("收藏成功");
+
+        if (mAdapter.getData().get(mPosition).isCollect()==false){
+            mCollectView.setBackgroundResource(R.drawable.ico_collect);
+            mAdapter.getData().get(mPosition).setCollect(true);
+            mAdapter.notifyDataSetChanged();
+
+        }
     }
 
     @Override
@@ -201,6 +224,12 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
+
+        if (mAdapter.getData().get(mPosition).isCollect()==true){
+            mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+            mAdapter.getData().get(mPosition).setCollect(false);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

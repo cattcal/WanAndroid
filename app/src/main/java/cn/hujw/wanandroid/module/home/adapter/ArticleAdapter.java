@@ -39,7 +39,7 @@ public class ArticleAdapter extends BaseQuickAdapter<ArticleModel.DatasBean, Bas
                 .setText(R.id.item_tv_nice_share_date, item.getNiceShareDate())
                 .setText(R.id.item_tv_title, item.getTitle())
                 .setText(R.id.item_tv_chapter_name, item.getSuperChapterName() + "·" + item.getChapterName())
-                .setChecked(R.id.item_cb_collect, item.isCollect())
+                .setImageResource(R.id.item_cb_collect, item.isCollect() ? R.drawable.ico_collect : R.drawable.ico_collect_normal)
                 .addOnClickListener(R.id.item_cb_collect);
 
 

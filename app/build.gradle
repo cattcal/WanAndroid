@@ -29,7 +29,7 @@ android {
             // armeabi：已经淘汰（0%）
             // armeabi-v7a：曾经主流的架构平台（20%）
             // arm64-v8a：目前主流架构平台（80%）
-            abiFilters "armeabi-v7a", "arm64-v8a"
+            abiFilters "armeabi-v7a", "arm64-v8a","x86"
         }
 
         // 开启 Dex 分包
@@ -183,7 +183,7 @@ dependencies {
     implementation 'com.github.cattcal:TitleBar:v1.0'
 
     // 吐司工具类：https://github.com/getActivity/ToastUtils
-    implementation 'com.hjq:toast:8.0'
+//    implementation 'com.hjq:toast:8.0'
 
     // 圆形的 ImageView：https://github.com/hdodenhof/CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.0.0'

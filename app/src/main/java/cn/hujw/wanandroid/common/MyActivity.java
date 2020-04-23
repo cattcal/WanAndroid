@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.hjq.toast.ToastUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,6 +24,7 @@ import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.other.EventBusManager;
 import cn.hujw.wanandroid.other.StatusManager;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
  * @author: hujw

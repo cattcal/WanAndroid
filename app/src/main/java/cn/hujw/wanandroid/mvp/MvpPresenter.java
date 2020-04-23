@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.annotation.StringRes;
 
-import com.hjq.toast.ToastUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -12,6 +11,7 @@ import java.lang.reflect.Proxy;
 
 import cn.hujw.wanandroid.mvp.proxy.IMvpModelProxy;
 import cn.hujw.wanandroid.mvp.proxy.MvpModelProxyImpl;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
  * @author: hujw

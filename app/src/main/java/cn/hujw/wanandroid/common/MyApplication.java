@@ -5,8 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.hjq.toast.ToastInterceptor;
-import com.hjq.toast.ToastUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -25,6 +23,11 @@ import cn.hujw.wanandroid.http.RxHttpUtilsManager;
 import cn.hujw.wanandroid.other.EventBusManager;
 import cn.hujw.wanandroid.ui.activity.CrashActivity;
 import cn.hujw.wanandroid.ui.activity.HomeActivity;
+import cn.hujw.wanandroid.utils.toast.ToastInterceptor;
+import cn.hujw.wanandroid.utils.toast.ToastUtils;
+import cn.hujw.wanandroid.utils.toast.style.ToastAliPayStyle;
+import cn.hujw.wanandroid.utils.toast.style.ToastBlackStyle;
+import cn.hujw.wanandroid.utils.toast.style.ToastQQStyle;
 
 /**
  * @author: hujw
@@ -98,7 +101,7 @@ public final class MyApplication extends Application {
             }
         });
         // 吐司工具类
-        ToastUtils.init(application);
+        ToastUtils.init(application,new ToastAliPayStyle(application));
 
         // 图片加载器
         ImageLoader.init(application);

@@ -3,6 +3,7 @@ package cn.hujw.wanandroid.module.mine.activity;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,7 +63,8 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     private List<CollectArticleModel.DatasBean> mData;
 
     private SmartRefreshUtils mSmartRefreshUtils;
-    private int position;
+    private int mPosition;
+    private AppCompatImageView mCollectView;
 
 
     @Override
@@ -97,11 +99,11 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                CollectArticleActivity.this.position = position;
-                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
-                if (mCollectView.isChecked()) {
-                    collectPresenter.getUnCollect(mAdapter.getData().get(position).getOriginId());
-                }
+                mPosition = position;
+                mCollectView = view.findViewById(R.id.item_cb_collect);
+
+                collectPresenter.getUnCollect(mAdapter.getData().get(position).getOriginId());
+
 
             }
         });
@@ -173,15 +175,17 @@ public class CollectArticleActivity extends MvpActivity implements CollectArticl
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
-        mAdapter.remove(position);
+        mAdapter.remove(mPosition);
+
+        if (mAdapter.getData().size()==0){
+            onEmpty();
+        }
     }
 
     @Override
     public void getUnCollectError(String msg) {
 
     }
-
-
 
 
 }
