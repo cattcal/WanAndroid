@@ -1,11 +1,7 @@
 package cn.hujw.wanandroid.module.mine.activity;
 
-import android.os.Bundle;
-import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
