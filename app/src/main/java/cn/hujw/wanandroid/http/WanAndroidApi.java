@@ -11,6 +11,7 @@ import cn.hujw.wanandroid.module.home.mvp.modle.NavigationModel;
 import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.module.login.mvp.model.UserRegisterModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
+import cn.hujw.wanandroid.module.mine.mvp.modle.CommonlyUsedWebSiteModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.MineIntegralModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.LeaderboardModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.PlanetModel;
@@ -179,6 +180,12 @@ public interface WanAndroidApi {
     @POST("lg/collect/{id}/json")
     Observable<BaseData<CollectModel>> getCollect(@Path("id") int id);
 
+    /**
+     * 取消收藏
+     */
     @POST("lg/uncollect_originId/{id}/json")
     Observable<BaseData<UnCollectModel>> getUnCollect(@Path("id") int id);
+
+    @GET("friend/json")
+    Observable<BaseData<List<CommonlyUsedWebSiteModel> >> getCommonlyUsedWebSite();
 }

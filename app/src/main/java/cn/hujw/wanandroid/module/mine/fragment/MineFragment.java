@@ -26,6 +26,7 @@ import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.UserInfoManager;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
+import cn.hujw.wanandroid.module.mine.activity.CommonlyUsedWebSiteActivity;
 import cn.hujw.wanandroid.module.mine.activity.FuliActivity;
 import cn.hujw.wanandroid.module.mine.activity.LeaderboardActivity;
 import cn.hujw.wanandroid.module.mine.activity.MineIntegralActivity;
@@ -229,6 +230,7 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
                 startActivity(PlanetActivity.class);
                 break;
             case R.id.sb_mine_website:
+                startActivity(CommonlyUsedWebSiteActivity.class);
                 break;
 
             case R.id.sb_mine_fuli:
