@@ -65,6 +65,6 @@ public class CommonlyUsedWebSiteActivity extends MvpActivity implements Commonly
 
     @Override
     public void getCommonlyUsedWebSiteError(String msg) {
-
+        toast(msg);
     }
 }
