@@ -144,7 +144,15 @@ public class ProjectArticleFragment extends MvpLazyFragment implements ProjectAr
         mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
 
         //下拉刷新
-        mSmartRefreshUtils.setRefreshListener(() -> loadData());
+        mSmartRefreshUtils.setRefreshListener(() -> {
+            if (mAdapter.getData().size() != 0) {
+                mAdapter.getData().clear();
+                mAdapter.notifyDataSetChanged();
+
+                loadData();
+
+            }
+        });
 
         //上拉加载
         mSmartRefreshUtils.setLoadMoreListener(() -> {

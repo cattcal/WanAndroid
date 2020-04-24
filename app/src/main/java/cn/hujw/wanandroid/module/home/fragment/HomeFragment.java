@@ -118,7 +118,14 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
         mSmartRefreshUtils = SmartRefreshUtils.getInstance(mSmartRefreshLayout);
 
         //下拉刷新
-        mSmartRefreshUtils.setRefreshListener(() -> loadData());
+        mSmartRefreshUtils.setRefreshListener(() -> {
+            if (mAdapter.getData().size()!=0||bannerData.size()!=0){
+                mAdapter.getData().clear();
+                bannerData.clear();
+                mAdapter.notifyDataSetChanged();
+                loadData();
+            }
+        });
 
         //上拉加载
         mSmartRefreshUtils.setLoadMoreListener(() -> mPresenter.getArticle(mCurrentPage));
