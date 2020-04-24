@@ -1,5 +1,6 @@
 package cn.hujw.wanandroid.module.mine.fragment;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,6 +23,7 @@ import cn.hujw.image.ImageLoader;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
+import cn.hujw.wanandroid.helper.UserInfoManager;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.module.mine.activity.FuliActivity;
@@ -36,6 +38,7 @@ import cn.hujw.wanandroid.module.mine.mvp.presenter.MinePresenter;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.PhotoActivity;
+import cn.hujw.wanandroid.utils.SPUtils;
 import cn.hujw.wanandroid.widget.XCollapsingToolbarLayout;
 
 
@@ -103,20 +106,40 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     @Override
     protected void initData() {
 
+
         cookieStore = new SPCookieStore(MyApplication.getContext());
 
-        for (int i = 0; i < cookieStore.getAllCookie().size(); i++) {
-            log("SPCookieStore " + cookieStore.getAllCookie().get(i) + "");
-        }
-
         if (cookieStore.getAllCookie().size() == 0) {
+            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarSmallView);
+            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarBigView);
             mNameView.setText("去登录");
             mUserIdView.setText("用户ID：暂无数据");
             mLevelView.setText("等级\n暂无数据");
             mTotalPointsView.setText("总积分\n暂无数据");
             mCurrentRankingView.setText("当前排名\n暂无数据");
         } else {
-            mPresenter.getUserInfo();
+
+            String avatar = SPUtils.getInstance().get("user_avatar", "");
+            if (avatar != "") {
+                ImageLoader.with(this).load(avatar).into(mAvatarSmallView);
+                ImageLoader.with(this).load(avatar).into(mAvatarBigView);
+            }else{
+                ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarSmallView);
+                ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarBigView);
+            }
+
+            data = UserInfoManager.getInstance().getUserInfo();
+
+            if (data != null) {
+                mNameView.setText(data.getUsername() + "");
+                mUserIdView.setText("用户ID：" + data.getUserId());
+                mLevelView.setText("等级\n" + data.getLevel());
+                mTotalPointsView.setText("我的积分\n" + data.getCoinCount());
+                mCurrentRankingView.setText("当前排名\n" + data.getRank());
+            } else {
+                mPresenter.getUserInfo();
+            }
+
         }
 
     }
@@ -148,7 +171,7 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             R.id.sb_mine_share,
             R.id.sb_mine_planet,
             R.id.sb_mine_website,
-    R.id.sb_mine_fuli})
+            R.id.sb_mine_fuli})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_name:
@@ -222,6 +245,8 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             @Override
             public void onSelect(List<String> data) {
 
+                SPUtils.getInstance().save("user_avatar", data.get(0));
+
                 ImageLoader.with(getAttachActivity())
                         .load(data.get(0))
                         .into(mAvatarSmallView);
@@ -242,15 +267,17 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
         this.data = data;
         mNameView.setText(data.getUsername() + "");
         mUserIdView.setText("用户ID：" + data.getUserId());
-
         mLevelView.setText("等级\n" + data.getLevel());
         mTotalPointsView.setText("我的积分\n" + data.getCoinCount());
         mCurrentRankingView.setText("当前排名\n" + data.getRank());
+
+        UserInfoManager.getInstance().setUserInfo(data);
+
     }
 
     @Override
     public void getUserInfoError(String msg) {
-
+        toast(msg);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
