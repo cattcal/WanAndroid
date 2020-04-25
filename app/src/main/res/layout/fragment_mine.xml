@@ -11,7 +11,7 @@
         android:id="@+id/abl_mine_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?android:attr/colorBackground"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="0dp">
 
@@ -193,10 +193,12 @@
 
 
             <cn.hujw.widget.layout.SettingBar
-                android:layout_marginTop="15dp"
                 android:id="@+id/sb_mine_collect"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_collect"
                 app:bar_leftText="我的收藏"
                 app:bar_rightIcon="@drawable/ico_go_black" />
@@ -205,6 +207,9 @@
                 android:id="@+id/sb_mine_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/colorBackground"
+
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_share"
                 app:bar_leftText="我的分享"
                 app:bar_rightIcon="@drawable/ico_go_black" />
@@ -213,7 +218,9 @@
             <cn.hujw.widget.layout.SettingBar
                 android:id="@+id/sb_mine_planet"
                 android:layout_width="match_parent"
+                android:background="?android:attr/colorBackground"
                 android:layout_height="wrap_content"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_planet"
                 app:bar_leftText="玩转星球"
                 app:bar_rightIcon="@drawable/ico_go_black" />
@@ -222,7 +229,9 @@
             <cn.hujw.widget.layout.SettingBar
                 android:id="@+id/sb_mine_website"
                 android:layout_width="match_parent"
+                android:background="?android:attr/colorBackground"
                 android:layout_height="wrap_content"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_website"
                 app:bar_leftText="@string/mine_commonly_used_web_site"
                 app:bar_rightIcon="@drawable/ico_go_black" />
@@ -231,6 +240,8 @@
                 android:id="@+id/sb_mine_fuli"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_fuli"
                 app:bar_leftText="福利"
                 app:bar_rightIcon="@drawable/ico_go_black" />

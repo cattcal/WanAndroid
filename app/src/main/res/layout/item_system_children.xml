@@ -11,8 +11,8 @@
     android:paddingTop="5dp"
     android:paddingRight="15dp"
     android:paddingBottom="5dp"
-    android:background="@drawable/selector_button"
-    android:textColor="@color/white"
+    android:background="?android:attr/colorBackground"
+    android:textColor="?android:attr/textColorPrimary"
     tools:text="Android Studio相关">
 
 

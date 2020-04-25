@@ -2,9 +2,12 @@ package cn.hujw.wanandroid.mvp;
 
 import android.content.Context;
 
+import com.gyf.immersionbar.ImmersionBar;
+
 import cn.hujw.wanandroid.common.MyActivity;
 import cn.hujw.wanandroid.mvp.proxy.IMvpPresenterProxy;
 import cn.hujw.wanandroid.mvp.proxy.MvpPresenterProxyImpl;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 
 /**
  * @author: hujw
@@ -21,6 +24,8 @@ public abstract class MvpActivity extends MyActivity implements IMvpView {
         mMvpProxy = createPresenterProxy();
         mMvpProxy.bindPresenter();
         super.initActivity();
+
+
     }
 
     protected IMvpPresenterProxy createPresenterProxy() {

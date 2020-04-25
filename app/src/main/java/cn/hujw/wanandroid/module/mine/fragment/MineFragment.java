@@ -146,10 +146,10 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     }
 
 
-    @Override
-    protected boolean statusBarDarkFont() {
-        return mCollapsingToolbarLayout.isScrimsShown();
-    }
+//    @Override
+//    protected boolean statusBarDarkFont() {
+//        return mCollapsingToolbarLayout.isScrimsShown();
+//    }
 
 
     @Override

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
     tools:context=".module.mine.activity.SettingActivity">
 
     <cn.hujw.titlebar.library.TitleBar
@@ -18,10 +19,12 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="?android:attr/colorBackground"
         app:cardCornerRadius="10dp"
         app:cardElevation="0px">
 
         <LinearLayout
+            android:background="?android:attr/colorBackground"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -29,10 +32,14 @@
                 android:id="@+id/sb_setting_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftText="@string/setting_update"
                 app:bar_rightIcon="@drawable/ico_go_black"/>
 
             <cn.hujw.widget.layout.SettingBar
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_cache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,15 +58,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="?android:attr/colorBackground"
         app:cardElevation="0px">
 
         <LinearLayout
             android:orientation="vertical"
+            android:background="?android:attr/colorBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <cn.hujw.widget.layout.SettingBar
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_agreement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,6 +78,8 @@
                 app:bar_rightIcon="@drawable/ico_go_black"/>
 
             <cn.hujw.widget.layout.SettingBar
+                android:background="?android:attr/colorBackground"
+                app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_about_us"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,16 +96,16 @@
 
     <androidx.cardview.widget.CardView
         android:layout_marginTop="15dp"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="0px">
         <cn.hujw.widget.layout.SettingBar
+            android:background="?android:attr/colorBackground"
             android:id="@+id/sb_setting_exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:bar_leftColor="@color/red"
+            app:bar_leftColor="?android:attr/textColorPrimary"
             app:bar_leftText="@string/setting_exit"/>
 
     </androidx.cardview.widget.CardView>

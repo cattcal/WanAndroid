@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
     tools:context=".module.home.fragment.HomeFragment">
 
     <cn.hujw.titlebar.library.TitleBar
@@ -80,6 +81,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?android:attr/colorBackground"
                     android:orientation="vertical">
 
 
@@ -90,8 +92,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_home_list"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/bg_color" />
+                            android:layout_height="match_parent" />
 
                     </cn.hujw.widget.layout.HintLayout>
 

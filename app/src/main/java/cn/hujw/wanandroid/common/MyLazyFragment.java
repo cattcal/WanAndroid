@@ -23,6 +23,7 @@ import cn.hujw.titlebar.library.TitleBar;
 import cn.hujw.umeng.UmengClient;
 import cn.hujw.wanandroid.other.EventBusManager;
 import cn.hujw.wanandroid.other.StatusManager;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
@@ -115,11 +116,20 @@ public abstract class MyLazyFragment<A extends MyActivity>
      */
     private ImmersionBar statusBarConfig() {
         //在BaseActivity里初始化
-        mImmersionBar = ImmersionBar.with(this)
-                // 默认状态栏字体颜色为黑色
-                .statusBarDarkFont(statusBarDarkFont())
-                // 解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
-                .keyboardEnable(true);
+        if (DarkThemeUtils.isDarkTheme(getActivity())) {
+            mImmersionBar = ImmersionBar.with(this)
+                    // 默认状态栏字体颜色为黑色
+                    .statusBarDarkFont(!statusBarDarkFont())
+                    // 解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
+                    .keyboardEnable(true);
+        } else {
+            mImmersionBar = ImmersionBar.with(this)
+                    // 默认状态栏字体颜色为黑色
+                    .statusBarDarkFont(statusBarDarkFont())
+                    // 解决软键盘与底部输入框冲突问题，默认为false，还有一个重载方法，可以指定软键盘mode
+                    .keyboardEnable(true);
+        }
+
         return mImmersionBar;
     }
 

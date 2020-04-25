@@ -23,6 +23,7 @@ import cn.hujw.wanandroid.module.system.fragment.SystemFragment;
 import cn.hujw.wanandroid.module.home.fragment.HomeFragment;
 import cn.hujw.wanandroid.module.wechat.fragment.WeChatFragment;
 import cn.hujw.wanandroid.module.mine.fragment.MineFragment;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.widget.layout.NoScrollViewPager;
 
 /**
@@ -59,6 +60,12 @@ public class HomeActivity extends MvpActivity implements ViewPager.OnPageChangeL
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         KeyboardWatcher.with(this).setListener(this);
+
+    }
+
+    @Override
+    public boolean statusBarDarkFont() {
+        return super.statusBarDarkFont();
     }
 
     @Override

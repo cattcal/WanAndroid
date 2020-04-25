@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?android:attr/colorBackground"
     android:gravity="center_horizontal"
     android:layoutAnimation="@anim/layout_animation_from_bottom"
     android:orientation="vertical"
@@ -35,6 +35,7 @@
         <cn.hujw.widget.view.ClearEditText
             android:id="@+id/et_login_user_name"
             style="@style/EditTextStyle"
+            android:textColor="?android:attr/textColorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -46,11 +47,12 @@
 
         <View
             style="@style/HorizontalLineStyle"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp" />
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp" />
 
         <cn.hujw.widget.view.PasswordEditText
             android:id="@+id/et_login_password"
+            android:textColor="?android:attr/textColorPrimary"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,8 +65,8 @@
 
         <View
             style="@style/HorizontalLineStyle"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp" />
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:visibility="gone"
@@ -82,6 +84,7 @@
             android:id="@+id/btn_login_commit"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
+            android:textColor="@color/white75"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="30dp"

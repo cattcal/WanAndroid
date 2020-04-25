@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:background="?android:attr/colorBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -23,11 +24,12 @@
                 android:id="@+id/rv_navigation_tab"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:background="@color/bg_color" />
+                android:background="?android:attr/colorBackground" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_navigation_right"
                 android:layout_width="match_parent"
+                android:background="?android:attr/colorBackground"
                 android:layout_height="match_parent" />
 
 

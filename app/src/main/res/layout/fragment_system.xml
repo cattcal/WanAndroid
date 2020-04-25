@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".module.system.fragment.SystemFragment">
 
@@ -17,6 +16,7 @@
         app:title="体系" />
 
     <cn.hujw.widget.layout.HintLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,9 +24,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_system"
+        android:background="?android:attr/colorBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_color" />
+        android:layout_height="match_parent" />
 
 
     </cn.hujw.widget.layout.HintLayout>

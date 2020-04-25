@@ -12,11 +12,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:text="知识体系"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="16sp" />
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:background="?android:attr/colorBackground"
         android:id="@+id/item_rv_children"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

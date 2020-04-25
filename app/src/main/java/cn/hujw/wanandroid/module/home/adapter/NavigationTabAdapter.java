@@ -57,10 +57,10 @@ public class NavigationTabAdapter extends MyRecyclerViewAdapter<NavigationModel>
             mNameView.setText(getItem(position).getName());
 
             if (position == selectPosition) {
-                mTabLayout.setBackgroundColor(Color.WHITE);
+//                mTabLayout.setBackgroundColor(getColor(R.color.black35));
                 mTabView.setVisibility(View.VISIBLE);
             } else {
-                mTabLayout.setBackgroundColor(Color.TRANSPARENT);
+//                mTabLayout.setBackgroundColor(Color.TRANSPARENT);
                 mTabView.setVisibility(View.INVISIBLE);
             }
         }

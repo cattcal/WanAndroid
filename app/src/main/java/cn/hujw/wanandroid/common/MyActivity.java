@@ -24,6 +24,7 @@ import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.helper.ActivityStackManager;
 import cn.hujw.wanandroid.other.EventBusManager;
 import cn.hujw.wanandroid.other.StatusManager;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.wanandroid.utils.toast.ToastUtils;
 
 /**
@@ -35,11 +36,17 @@ import cn.hujw.wanandroid.utils.toast.ToastUtils;
 public abstract class MyActivity extends BaseActivity
         implements OnTitleBarListener {
 
-    /** 标题栏对象 */
+    /**
+     * 标题栏对象
+     */
     private TitleBar mTitleBar;
-    /** 状态栏沉浸 */
+    /**
+     * 状态栏沉浸
+     */
     private ImmersionBar mImmersionBar;
-    /** ButterKnife 注解 */
+    /**
+     * ButterKnife 注解
+     */
     private Unbinder mButterKnife;
 
     /**
@@ -141,9 +148,15 @@ public abstract class MyActivity extends BaseActivity
      */
     protected ImmersionBar statusBarConfig() {
         // 在BaseActivity里初始化
-        mImmersionBar = ImmersionBar.with(this)
-                // 默认状态栏字体颜色为黑色
-                .statusBarDarkFont(statusBarDarkFont());
+        if (DarkThemeUtils.isDarkTheme(getActivity())) {
+            mImmersionBar = ImmersionBar.with(this)
+                    // 默认状态栏字体颜色为黑色
+                    .statusBarDarkFont(!statusBarDarkFont());
+        } else {
+            mImmersionBar = ImmersionBar.with(this)
+                    // 默认状态栏字体颜色为黑色
+                    .statusBarDarkFont(statusBarDarkFont());
+        }
         return mImmersionBar;
     }
 
@@ -273,13 +286,15 @@ public abstract class MyActivity extends BaseActivity
      * TitleBar 中间的View被点击了
      */
     @Override
-    public void onTitleClick(View v) {}
+    public void onTitleClick(View v) {
+    }
 
     /**
      * TitleBar 右边的View被点击了
      */
     @Override
-    public void onRightClick(View v) {}
+    public void onRightClick(View v) {
+    }
 
     @Override
     protected void onResume() {
