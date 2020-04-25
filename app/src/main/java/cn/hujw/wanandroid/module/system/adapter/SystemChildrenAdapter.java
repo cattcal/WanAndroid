@@ -43,6 +43,7 @@ public final class SystemChildrenAdapter extends MyRecyclerViewAdapter<SystemMod
 
         @Override
         public void onBindView(int position) {
+
             if (DarkThemeUtils.isDarkTheme(getContext())) {
                 mNameView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
                 mNameView.setTextColor(getResources().getColor(R.color.white75));
