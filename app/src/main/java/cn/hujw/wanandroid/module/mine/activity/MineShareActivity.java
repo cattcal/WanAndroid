@@ -60,7 +60,9 @@ public class MineShareActivity extends MvpActivity implements MineShareContract.
         mSmartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                initData();
+                mAdapter.clearData();
+                mAdapter.notifyDataSetChanged();
+                loadData();
                 refreshLayout.finishRefresh();
             }
         });
@@ -77,13 +79,19 @@ public class MineShareActivity extends MvpActivity implements MineShareContract.
 
     @Override
     protected void initData() {
-        mAdapter.clearData();
+        onLoading();//请求数据的时候弹出Dialog  HintLayout布局的使用
+
+        loadData();
+    }
+
+    private void loadData() {
         mCurrentPage = 1;
         mPresenter.getMineShare(mCurrentPage);
     }
 
     @Override
     public void getMineShareSuccess(MineShareModel data) {
+        onComplete();
         if (data.getShareArticles().getTotal()==0){
             onEmpty();
         }else{

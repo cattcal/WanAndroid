@@ -8,6 +8,7 @@ import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
 import cn.hujw.wanandroid.module.home.mvp.modle.BannerModel;
 import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
 import cn.hujw.wanandroid.module.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.ShareArticleModel;
 import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.module.login.mvp.model.UserRegisterModel;
 import cn.hujw.wanandroid.module.mine.mvp.modle.CollectArticleModel;
@@ -188,4 +189,11 @@ public interface WanAndroidApi {
 
     @GET("friend/json")
     Observable<BaseData<List<CommonlyUsedWebSiteModel> >> getCommonlyUsedWebSite();
+
+    /**
+     * 分享文章
+     */
+    @FormUrlEncoded
+    @POST("lg/user_article/add/json")
+    Observable<BaseData<ShareArticleModel>> shareArticle(@Field("title") String title, @Field("link") String link);
 }

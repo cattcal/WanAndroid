@@ -25,6 +25,7 @@ import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.UserInfoManager;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
+import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.module.mine.activity.CommonlyUsedWebSiteActivity;
 import cn.hujw.wanandroid.module.mine.activity.FuliActivity;
@@ -40,6 +41,7 @@ import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.PhotoActivity;
 import cn.hujw.wanandroid.utils.SPUtils;
+import cn.hujw.wanandroid.utils.UserManager;
 import cn.hujw.wanandroid.widget.XCollapsingToolbarLayout;
 
 
@@ -108,27 +110,16 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     protected void initData() {
 
 
-        cookieStore = new SPCookieStore(MyApplication.getContext());
-
-        if (cookieStore.getAllCookie().size() == 0) {
-            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarSmallView);
-            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarBigView);
-            mNameView.setText("去登录");
-            mUserIdView.setText("用户ID：暂无数据");
-            mLevelView.setText("等级\n暂无数据");
-            mTotalPointsView.setText("总积分\n暂无数据");
-            mCurrentRankingView.setText("当前排名\n暂无数据");
-        } else {
+        if (UserManager.getInstance().isLogin()) {
 
             String avatar = SPUtils.getInstance().get("user_avatar", "");
             if (avatar != "") {
                 ImageLoader.with(this).load(avatar).into(mAvatarSmallView);
                 ImageLoader.with(this).load(avatar).into(mAvatarBigView);
-            }else{
+            } else {
                 ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarSmallView);
                 ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarBigView);
             }
-
             data = UserInfoManager.getInstance().getUserInfo();
 
             if (data != null) {
@@ -140,6 +131,15 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
             } else {
                 mPresenter.getUserInfo();
             }
+
+        } else {
+            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarSmallView);
+            ImageLoader.with(this).load(R.drawable.ico_avatar_default).into(mAvatarBigView);
+            mNameView.setText("去登录");
+            mUserIdView.setText("用户ID：暂无数据");
+            mLevelView.setText("等级\n暂无数据");
+            mTotalPointsView.setText("总积分\n暂无数据");
+            mCurrentRankingView.setText("当前排名\n暂无数据");
 
         }
 
@@ -176,41 +176,31 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_name:
-                if (cookieStore.getAllCookie().size() == 0) {
-                    startActivity(LoginActivity.class);
+
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                 }
             case R.id.iv_avatar_big:
-                if (cookieStore.getAllCookie().size() == 0) {
-                    startActivity(LoginActivity.class);
-                } else {
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                     //选择头像
                     chooseAvatar();
                 }
-
                 break;
             case R.id.iv_mine_setting:
                 startActivity(SettingActivity.class);
                 break;
             case R.id.iv_avatar_small:
-                if (cookieStore.getAllCookie().size() == 0) {
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                     startActivity(LoginActivity.class);
-                } else {
-                    //选择头像
-                    chooseAvatar();
                 }
 
                 break;
             case R.id.tv_total_points:
-                if (cookieStore.getAllCookie().size() == 0) {
-                    startActivity(LoginActivity.class);
-                } else {
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                     MineIntegralActivity.start(getContext(), data.getCoinCount() + "");
                 }
                 break;
             case R.id.tv_current_ranking:
-                if (cookieStore.getAllCookie().size() == 0) {
-                    startActivity(LoginActivity.class);
-                } else {
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                     LeaderboardActivity.start(getContext(), data.getRank() + "", data.getUsername() + "", data.getCoinCount() + "");
                 }
                 break;
@@ -219,12 +209,9 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
                 startActivity(CollectActivity.class);
                 break;
             case R.id.sb_mine_share:
-                if (cookieStore.getAllCookie().size() == 0) {
-                    startActivity(LoginActivity.class);
-                } else {
+                if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
                     startActivity(MineShareActivity.class);
                 }
-
                 break;
             case R.id.sb_mine_planet:
                 startActivity(PlanetActivity.class);

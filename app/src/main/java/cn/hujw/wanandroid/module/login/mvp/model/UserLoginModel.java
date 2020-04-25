@@ -17,10 +17,11 @@ import cn.hujw.wanandroid.mvp.MvpModel;
  */
 public final class UserLoginModel extends MvpModel<LoginOnListener> {
 
+
     /**
      * admin : false
      * chapterTops : []
-     * collectIds : []
+     * collectIds : [12955,12693,8976,12554,12958]
      * email :
      * icon :
      * id : 20690
@@ -42,10 +43,10 @@ public final class UserLoginModel extends MvpModel<LoginOnListener> {
     private String token;
     private int type;
     private String username;
-    private List<?> chapterTops;
-    private List<?> collectIds;
+    private List<Integer> chapterTops;
+    private List<Integer> collectIds;
 
-    public void userLogin(String username,String  password) {
+    public void userLogin(String username, String  password) {
         // 为了省事，这里直接回调成功
         ApiHelper.getWanAndroidApi()
                 .userLogin(username,password)
@@ -62,6 +63,7 @@ public final class UserLoginModel extends MvpModel<LoginOnListener> {
                     }
                 });
     }
+
 
     public boolean isAdmin() {
         return admin;
@@ -143,19 +145,19 @@ public final class UserLoginModel extends MvpModel<LoginOnListener> {
         this.username = username;
     }
 
-    public List<?> getChapterTops() {
+    public List<Integer> getChapterTops() {
         return chapterTops;
     }
 
-    public void setChapterTops(List<?> chapterTops) {
+    public void setChapterTops(List<Integer> chapterTops) {
         this.chapterTops = chapterTops;
     }
 
-    public List<?> getCollectIds() {
+    public List<Integer> getCollectIds() {
         return collectIds;
     }
 
-    public void setCollectIds(List<?> collectIds) {
+    public void setCollectIds(List<Integer> collectIds) {
         this.collectIds = collectIds;
     }
 }

@@ -40,6 +40,9 @@ public class MineShareAdapter extends MyRecyclerViewAdapter<MineShareModel.Share
         @BindView(R.id.item_tv_title)
         AppCompatTextView mTitleView;
 
+        @BindView(R.id.item_tv_chapter_name)
+        AppCompatTextView mChapterView;
+
 
         public ViewHolder() {
             super(R.layout.item_article);
@@ -50,6 +53,7 @@ public class MineShareAdapter extends MyRecyclerViewAdapter<MineShareModel.Share
             mShareUserView.setText(!getItem(position).getShareUser().equals("") ? getItem(position).getShareUser() : getItem(position).getAuthor());
             mNiceShareDateView.setText(getItem(position).getNiceShareDate());
             mTitleView.setText(Html.fromHtml(getItem(position).getTitle()));
+            mChapterView.setText(getItem(position).getChapterName());
         }
     }
 }

@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -27,6 +29,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.module.home.adapter.SearchHistoryAdapter;
+import cn.hujw.wanandroid.module.home.mvp.contract.ShareArticleContract;
+import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
+import cn.hujw.wanandroid.module.home.mvp.modle.ShareArticleModel;
+import cn.hujw.wanandroid.module.home.mvp.presenter.ShareArticlePresenter;
+import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -43,6 +50,7 @@ import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
 import cn.hujw.wanandroid.utils.SPHistoryUtils;
 import cn.hujw.wanandroid.utils.SPUtils;
 import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+import cn.hujw.wanandroid.utils.UserManager;
 
 import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
@@ -52,12 +60,15 @@ import static cn.hujw.wanandroid.common.Config.PAGE_START;
  * @description:
  * @email: hujw_android@163.com
  */
-public class SearchActivity extends MvpActivity implements SearchContract.View, CollectContract.View {
+public class SearchActivity extends MvpActivity implements SearchContract.View, CollectContract.View, ShareArticleContract.View {
 
     @MvpInject
     SearchPresenter mPresenter;
     @MvpInject
     CollectPresenter collectPresenter;
+
+    @MvpInject
+    ShareArticlePresenter shareArticlePresenter;
 
     @BindView(R.id.et_home_search)
     AppCompatEditText mSearchView;
@@ -93,6 +104,10 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     private List<SearchArticleModel.DatasBean> mData;
     private SPUtils instance;
     private String inputText;
+
+    private AppCompatImageView mCollectView;
+    private int mId;
+    private int mPosition;
 
 
     @Override
@@ -170,14 +185,30 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
         mSearchArticleRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                AppCompatCheckBox mCollectView = view.findViewById(R.id.item_cb_collect);
-                int id = mAdapter.getData().get(position).getId();
+                mCollectView = view.findViewById(R.id.item_cb_collect);
 
-                if (!mCollectView.isChecked()) {
-                    collectPresenter.getCollect(id);
+                mPosition = position;
+
+                mId = mAdapter.getData().get(position).getId();
+
+                if (UserManager.getInstance().isLogin()) {
+                    if (mAdapter.getData().get(position).isCollect() != true) {
+                        collectPresenter.getCollect(mId);
+                    } else {
+                        collectPresenter.getUnCollect(mId);
+                    }
                 } else {
-                    collectPresenter.getUnCollect(id);
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
                 }
+            }
+        });
+
+        mSearchArticleRecyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
+            @Override
+            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                SearchArticleModel.DatasBean datasBean = mAdapter.getData().get(position);
+                shareArticlePresenter.shareArticle(datasBean.getTitle(), datasBean.getLink());
             }
         });
 
@@ -267,6 +298,11 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     @Override
     public void getCollectSuccess(CollectModel data) {
         toast("收藏成功");
+        if (mAdapter.getData().get(mPosition).isCollect() == false) {
+            mAdapter.getData().get(mPosition).setCollect(true);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -277,10 +313,26 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     @Override
     public void getUnCollectSuccess(UnCollectModel data) {
         toast("取消收藏");
+        if (mAdapter.getData().get(mPosition).isCollect() == true) {
+            mAdapter.getData().get(mPosition).setCollect(false);
+            mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void getUnCollectError(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void getShareArticleSuccess(ShareArticleModel data) {
+        toast("分享成功到广场");
+    }
+
+    @Override
+    public void getShareArticleError(String msg) {
+        toast(msg);
+
     }
 }

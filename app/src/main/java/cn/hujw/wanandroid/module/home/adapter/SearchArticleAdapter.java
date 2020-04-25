@@ -32,7 +32,7 @@ public class SearchArticleAdapter extends BaseQuickAdapter<SearchArticleModel.Da
                 .setText(R.id.item_tv_nice_share_date, item.getNiceShareDate())
                 .setText(R.id.item_tv_title, Html.fromHtml(item.getTitle()))
                 .addOnClickListener(R.id.item_cb_collect)
-                .setChecked(R.id.item_cb_collect, item.isCollect());
+                .setImageResource(R.id.item_cb_collect, item.isCollect() ? R.drawable.ico_collect : R.drawable.ico_collect_normal);
     }
 
 }

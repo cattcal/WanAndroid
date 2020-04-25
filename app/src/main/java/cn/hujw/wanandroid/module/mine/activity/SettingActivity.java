@@ -22,6 +22,7 @@ import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
 import cn.hujw.wanandroid.ui.dialog.MessageDialog;
+import cn.hujw.wanandroid.utils.UserManager;
 import cn.hujw.widget.layout.SettingBar;
 
 /**
@@ -71,7 +72,6 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                             @Override
                             public void onConfirm(BaseDialog dialog) {
                                 mPresenter.getLogout();
-
                             }
 
                             @Override
@@ -88,6 +88,7 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                             @Override
                             public void onConfirm(BaseDialog dialog) {
                                 // 清空缓存
+
                                 ImageLoader.clear(getContext());
                                 CacheDataManager.clearAllCache(getContext());
                                 // 重新获取应用缓存大小
@@ -101,7 +102,6 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
                         }).show();
                 break;
             case R.id.sb_setting_agreement:
-//                WebActivity.start(getContext(),"https://www.035ye.com");
                 break;
 
         }
@@ -112,6 +112,9 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
         if (cookieStore != null) {
             cookieStore.removeAllCookie();
         }
+
+        UserManager.getInstance().logout();
+
         startActivity(LoginActivity.class);
         // 进行内存优化，销毁掉所有的界面
         ActivityStackManager.getInstance().finishAllActivities(LoginActivity.class);

@@ -5,6 +5,7 @@ import cn.hujw.wanandroid.module.login.mvp.listener.LoginOnListener;
 import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpPresenter;
+import cn.hujw.wanandroid.utils.UserManager;
 
 /**
  * 描述：
@@ -25,6 +26,7 @@ public class LoginPresenter extends MvpPresenter<LoginContract.View> implements 
 
     @Override
     public void onLoginSucceed(UserLoginModel data) {
+        UserManager.getInstance().login(data);
         getView().getLoginSuccess(data);
     }
 

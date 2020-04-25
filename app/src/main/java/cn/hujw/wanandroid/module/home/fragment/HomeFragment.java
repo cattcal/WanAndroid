@@ -4,16 +4,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -28,8 +27,10 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.titlebar.library.TitleBar;
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
+import cn.hujw.wanandroid.module.home.mvp.contract.ShareArticleContract;
+import cn.hujw.wanandroid.module.home.mvp.modle.ShareArticleModel;
+import cn.hujw.wanandroid.module.home.mvp.presenter.ShareArticlePresenter;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
@@ -46,6 +47,7 @@ import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
 import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+import cn.hujw.wanandroid.utils.UserManager;
 
 import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
@@ -55,7 +57,7 @@ import static cn.hujw.wanandroid.common.Config.PAGE_START;
  * @description: 主页面
  * @email: hujw_android@163.com
  */
-public class HomeFragment extends MvpLazyFragment implements HomeContract.View, CollectContract.View {
+public class HomeFragment extends MvpLazyFragment implements HomeContract.View, CollectContract.View, ShareArticleContract.View {
 
     private static final String TAG = "HomeFragment";
     @MvpInject
@@ -63,6 +65,9 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     @MvpInject
     CollectPresenter collectPresenter;
+
+    @MvpInject
+    ShareArticlePresenter shareArticlePresenter;
 
     @BindView(R.id.tb_home)
     TitleBar mTitleBar;
@@ -85,7 +90,6 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
     private List<BannerModel> bannerData = new ArrayList<>();
     private List<ArticleModel.DatasBean> topList = new ArrayList<>();
-    private SPCookieStore mCookieStore;
     private AppCompatImageView mCollectView;
     private int mId;
     private int mPosition;
@@ -119,7 +123,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
         //下拉刷新
         mSmartRefreshUtils.setRefreshListener(() -> {
-            if (mAdapter.getData().size()!=0||bannerData.size()!=0){
+            if (mAdapter.getData().size() != 0 || bannerData.size() != 0) {
                 mAdapter.getData().clear();
                 bannerData.clear();
                 mAdapter.notifyDataSetChanged();
@@ -150,6 +154,7 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
             }
         });
 
+
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
             @Override
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -159,20 +164,25 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
 
                 mId = mAdapter.getData().get(position).getId();
 
-                mCookieStore = new SPCookieStore(MyApplication.getContext());
-
-                if (mCookieStore.getAllCookie().size() == 0) {
-                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
-                    startActivity(LoginActivity.class);
-                } else {
+                if (UserManager.getInstance().isLogin()) {
                     if (mAdapter.getData().get(position).isCollect() != true) {
                         collectPresenter.getCollect(mId);
                     } else {
                         collectPresenter.getUnCollect(mId);
                     }
-
+                } else {
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
                 }
 
+            }
+        });
+
+        mRecyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
+            @Override
+            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                 ArticleModel.DatasBean datasBean= mAdapter.getData().get(position);
+                shareArticlePresenter.shareArticle(datasBean.getTitle(),datasBean.getLink());
             }
         });
 
@@ -328,4 +338,13 @@ public class HomeFragment extends MvpLazyFragment implements HomeContract.View, 
         loadData();
     }
 
+    @Override
+    public void getShareArticleSuccess(ShareArticleModel data) {
+        toast("分享成功到广场");
+    }
+
+    @Override
+    public void getShareArticleError(String msg) {
+        toast(msg);
+    }
 }

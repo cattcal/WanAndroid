@@ -12,6 +12,7 @@ import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -24,7 +25,11 @@ import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
+import cn.hujw.wanandroid.module.home.mvp.contract.ShareArticleContract;
+import cn.hujw.wanandroid.module.home.mvp.modle.ShareArticleModel;
+import cn.hujw.wanandroid.module.home.mvp.presenter.ShareArticlePresenter;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
+import cn.hujw.wanandroid.module.project.mvp.modle.ProjectArticleModel;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.WebActivity;
@@ -38,6 +43,7 @@ import cn.hujw.wanandroid.ui.mvp.model.CollectModel;
 import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
 import cn.hujw.wanandroid.utils.SmartRefreshUtils;
+import cn.hujw.wanandroid.utils.UserManager;
 
 import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
@@ -48,7 +54,7 @@ import static cn.hujw.wanandroid.common.Config.PAGE_START;
  * @date 2019/11/21 0021
  */
 public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArticleContract.View,
-        BaseRecyclerViewAdapter.OnItemClickListener, CollectContract.View {
+        BaseRecyclerViewAdapter.OnItemClickListener, CollectContract.View, ShareArticleContract.View {
 
     private static final String TAG = "WeChatArticleFragment";
 
@@ -57,6 +63,9 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
 
     @MvpInject
     CollectPresenter collectPresenter;
+
+    @MvpInject
+    ShareArticlePresenter shareArticlePresenter;
 
     @BindView(R.id.srl_wechat_article)
     SmartRefreshLayout mSmartRefreshLayout;
@@ -75,7 +84,6 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     private SmartRefreshUtils mSmartRefreshUtils;
     private AppCompatImageView mCollectView;
     private int mPosition;
-    private SPCookieStore mCookieStore;
 
 
     public static WeChatArticleFragment newInstance(WeChatTabModel model, int position) {
@@ -121,23 +129,31 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
             public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 mCollectView = view.findViewById(R.id.item_cb_collect);
                 mPosition = position;
+
                 int id = mAdapter.getData().get(position).getId();
 
-                mCookieStore = new SPCookieStore(MyApplication.getContext());
-
-                if (mCookieStore.getAllCookie().size() == 0) {
-                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
-                    startActivity(LoginActivity.class);
-                }else{
+                if (UserManager.getInstance().isLogin()) {
                     if (mAdapter.getData().get(position).isCollect() != true) {
                         collectPresenter.getCollect(id);
                     } else {
                         collectPresenter.getUnCollect(id);
                     }
+                } else {
+                    mCollectView.setBackgroundResource(R.drawable.ico_collect_normal);
+                    startActivity(LoginActivity.class);
                 }
 
             }
         });
+
+        mRecyclerView.addOnItemTouchListener(new OnItemLongClickListener() {
+            @Override
+            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                 WeChatArticleModel.DatasBean datasBean= mAdapter.getData().get(position);
+                shareArticlePresenter.shareArticle(datasBean.getTitle(), datasBean.getLink());
+            }
+        });
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -244,4 +260,13 @@ public class WeChatArticleFragment extends MvpLazyFragment implements WeChatArti
     }
 
 
+    @Override
+    public void getShareArticleSuccess(ShareArticleModel data) {
+        toast("分享成功到广场");
+    }
+
+    @Override
+    public void getShareArticleError(String msg) {
+        toast(msg);
+    }
 }
