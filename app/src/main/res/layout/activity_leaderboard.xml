@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical">
 
     <cn.hujw.titlebar.library.TitleBar
@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?android:attr/colorBackground"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingRight="15dp">
@@ -26,7 +26,8 @@
             android:id="@+id/fl_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:background="?android:attr/colorBackground">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_level"
@@ -43,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/textColor"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="12sp"
                 tools:text="1" />
 
@@ -59,6 +60,7 @@
             android:layout_toRightOf="@+id/fl_level"
             android:includeFontPadding="false"
             android:lineSpacingExtra="0dp"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="huxiaoniu"
             android:textSize="14sp" />
 
@@ -70,7 +72,7 @@
             android:layout_centerVertical="true"
             android:gravity="right"
             android:text="48"
-            android:textColor="@color/colorAccent"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="14sp" />
 
     </RelativeLayout>
@@ -78,10 +80,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground"
         android:layout_marginTop="15dp">
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/srl_leaderboard"
+            android:background="?android:attr/colorBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -93,7 +97,7 @@
                     android:id="@+id/rv_leaderboard"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:background="?android:attr/colorBackground" />
 
             </cn.hujw.widget.layout.HintLayout>
 

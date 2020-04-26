@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/colorBackground"
     android:padding="15dp">
 
 
     <FrameLayout
         android:id="@+id/fl_level"
+        android:background="?android:attr/colorBackground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
@@ -28,7 +30,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:textColor="@color/textColor"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="12sp"
             tools:text="1" />
 
@@ -44,6 +46,7 @@
         android:layout_toRightOf="@+id/fl_level"
         android:includeFontPadding="false"
         android:lineSpacingExtra="0dp"
+        android:textColor="?android:attr/textColorPrimary"
         android:text="huxiaoniu"
         android:textSize="14sp" />
 
@@ -55,7 +58,7 @@
         android:layout_centerVertical="true"
         android:gravity="right"
         android:text="48"
-        android:textColor="@color/colorAccent"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="14sp" />
 
 </RelativeLayout>

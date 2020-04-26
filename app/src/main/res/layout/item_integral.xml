@@ -14,6 +14,7 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="?android:attr/textColorPrimary"
             android:text="签到积分 10 + 2"
             android:textSize="14sp" />
 
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+12"
-            android:textColor="@color/colorAccent"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -32,6 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="2019-11-27 06:31:22"
-        android:textColor="@color/gray"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="12sp" />
 </LinearLayout>

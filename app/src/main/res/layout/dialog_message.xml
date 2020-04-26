@@ -5,7 +5,7 @@
     android:layout_width="260dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="?android:attr/colorBackground"
     app:cardCornerRadius="@dimen/dialog_message_round_size"
     app:cardElevation="0px"
     tools:context=".ui.dialog.MessageDialog">
@@ -41,6 +41,7 @@
             tools:text="内容" />
 
         <View
+            android:id="@+id/v_message_h_view_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_size"
             android:layout_marginTop="10dp"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:background="?android:attr/colorBackground"
     android:orientation="vertical">
 
     <cn.hujw.titlebar.library.TitleBar
@@ -16,6 +16,7 @@
 
 
     <LinearLayout
+        android:background="?android:attr/colorBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -71,7 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@color/white"
+            android:background="?android:attr/colorBackground"
+            android:textColor="?android:attr/textColorPrimary"
             android:gravity="center"
             android:padding="5dp"
             android:text="积分明细"
@@ -93,7 +95,7 @@
                     android:id="@+id/rv_mine_integral"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white" />
+                    android:background="?android:attr/colorBackground" />
 
             </cn.hujw.widget.layout.HintLayout>
 

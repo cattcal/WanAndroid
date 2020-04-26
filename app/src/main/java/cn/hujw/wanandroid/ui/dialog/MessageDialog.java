@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import cn.hujw.base.BaseDialog;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyDialogFragment;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 
 /**
  * @author: hujw
@@ -30,6 +31,7 @@ public final class MessageDialog {
 
         private final TextView mCancelView;
         private final View mLineView;
+        private final View mHLineView;
         private final TextView mConfirmView;
 
         public Builder(FragmentActivity activity) {
@@ -40,12 +42,28 @@ public final class MessageDialog {
             mTitleView = findViewById(R.id.tv_message_title);
             mMessageView = findViewById(R.id.tv_message_message);
 
+
             mCancelView  = findViewById(R.id.tv_message_cancel);
             mLineView = findViewById(R.id.v_message_line);
+            mHLineView=findViewById(R.id.v_message_h_view_line);
             mConfirmView  = findViewById(R.id.tv_message_confirm);
 
             mCancelView.setOnClickListener(this);
             mConfirmView.setOnClickListener(this);
+
+            if (DarkThemeUtils.isDarkTheme(getContext())){
+                mTitleView.setTextColor(getResources().getColor(R.color.white75));
+                mMessageView.setTextColor(getResources().getColor(R.color.white75));
+                mLineView.setBackground(getResources().getDrawable(R.color.bg_color_night));
+                mHLineView.setBackground(getResources().getDrawable(R.color.bg_color_night));
+                mConfirmView.setTextColor(getResources().getColor(R.color.white75));
+            }else{
+                mTitleView.setTextColor(getResources().getColor(R.color.textColor));
+                mMessageView.setTextColor(getResources().getColor(R.color.textColor));
+                mLineView.setBackground(getResources().getDrawable(R.color.colorLine));
+                mHLineView.setBackground(getResources().getDrawable(R.color.colorLine));
+                mConfirmView.setTextColor(getResources().getColor(R.color.colorAccent));
+            }
         }
 
         public Builder setTitle(@StringRes int id) {

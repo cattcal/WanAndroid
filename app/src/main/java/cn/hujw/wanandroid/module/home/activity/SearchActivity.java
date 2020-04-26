@@ -135,7 +135,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
 
         if (historyList.size() > 0) {
             mHistoryLayout.setVisibility(View.VISIBLE);
-            mHistoryAdapter = new SearchHistoryAdapter(historyList);
+            mHistoryAdapter = new SearchHistoryAdapter(getContext(),historyList);
             FlexboxLayoutManager manager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
 
             mHistoryRecyclerView.setLayoutManager(manager);
@@ -158,7 +158,7 @@ public class SearchActivity extends MvpActivity implements SearchContract.View, 
     }
 
     private void initAdapter() {
-        mHotAdapter = new HotAdapter(mHotData);
+        mHotAdapter = new HotAdapter(getContext(),mHotData);
         mHotAdapter.setOnItemClickListener((recyclerView, itemView, position) -> {
             onComplete();
 

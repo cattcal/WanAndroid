@@ -1,6 +1,5 @@
 package cn.hujw.wanandroid.module.mine.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,11 +20,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.hujw.image.ImageLoader;
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.UserInfoManager;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
-import cn.hujw.wanandroid.module.login.mvp.model.UserLoginModel;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.module.mine.activity.CommonlyUsedWebSiteActivity;
 import cn.hujw.wanandroid.module.mine.activity.FuliActivity;
@@ -40,9 +37,11 @@ import cn.hujw.wanandroid.module.mine.mvp.presenter.MinePresenter;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.mvp.MvpLazyFragment;
 import cn.hujw.wanandroid.ui.activity.PhotoActivity;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.wanandroid.utils.SPUtils;
 import cn.hujw.wanandroid.utils.UserManager;
 import cn.hujw.wanandroid.widget.XCollapsingToolbarLayout;
+import cn.hujw.widget.layout.SettingBar;
 
 
 /**
@@ -84,6 +83,17 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
     AppCompatTextView mTotalPointsView;
     @BindView(R.id.tv_current_ranking)
     AppCompatTextView mCurrentRankingView;
+    @BindView(R.id.sb_mine_collect)
+    SettingBar mMineCollect;
+    @BindView(R.id.sb_mine_share)
+    SettingBar mMineShare;
+    @BindView(R.id.sb_mine_planet)
+    SettingBar mMinePlanet;
+    @BindView(R.id.sb_mine_website)
+    SettingBar mMineWebsite;
+    @BindView(R.id.sb_mine_fuli)
+    SettingBar mMineFuli;
+
     private SPCookieStore cookieStore;
     private UserInfoModel data;
 
@@ -104,6 +114,33 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
         ImmersionBar.setTitleBar(getActivity(), mToolbar);
         //设置渐变监听
         mCollapsingToolbarLayout.setOnScrimsListener(this);
+
+        if (DarkThemeUtils.isDarkTheme(getContext())) {
+            mMineCollect.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mMineShare.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mMinePlanet.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mMineFuli.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mMineWebsite.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+
+            mMineCollect.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mMineShare.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mMinePlanet.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mMineFuli.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mMineWebsite.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+
+        } else {
+            mMineCollect.setBackground(getResources().getDrawable(R.color.white75));
+            mMineShare.setBackground(getResources().getDrawable(R.color.white75));
+            mMinePlanet.setBackground(getResources().getDrawable(R.color.white75));
+            mMineFuli.setBackground(getResources().getDrawable(R.color.white75));
+            mMineWebsite.setBackground(getResources().getDrawable(R.color.white75));
+
+            mMineCollect.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mMineShare.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mMinePlanet.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mMineFuli.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mMineWebsite.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+        }
     }
 
     @Override

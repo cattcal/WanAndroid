@@ -43,7 +43,7 @@ public class CommonlyUsedWebSiteActivity extends MvpActivity implements Commonly
 
     @Override
     protected void initView() {
-        mAdapter = new CommonlyUsedWebSiteAdapter(mData);
+        mAdapter = new CommonlyUsedWebSiteAdapter(getContext(),mData);
         FlexboxLayoutManager manager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW, FlexWrap.WRAP);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);

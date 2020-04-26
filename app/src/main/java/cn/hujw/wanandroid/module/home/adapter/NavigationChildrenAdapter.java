@@ -10,6 +10,7 @@ import butterknife.BindView;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
 import cn.hujw.wanandroid.module.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 
 /**
  * 描述：
@@ -42,6 +43,12 @@ public final class NavigationChildrenAdapter extends MyRecyclerViewAdapter<Navig
 
         @Override
         public void onBindView(int position) {
+
+            if (DarkThemeUtils.isDarkTheme(getContext())) {
+                mNameView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            }else{
+                mNameView.setBackground(getResources().getDrawable(R.drawable.selector_button));
+            }
             mNameView.setText(getItem(position).getTitle());
         }
     }

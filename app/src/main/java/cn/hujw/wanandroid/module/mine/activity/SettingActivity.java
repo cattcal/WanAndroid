@@ -20,8 +20,8 @@ import cn.hujw.wanandroid.module.mine.mvp.modle.UserLogoutModel;
 import cn.hujw.wanandroid.module.mine.mvp.presenter.LogoutPresenter;
 import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
-import cn.hujw.wanandroid.ui.activity.WebActivity;
 import cn.hujw.wanandroid.ui.dialog.MessageDialog;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.wanandroid.utils.UserManager;
 import cn.hujw.widget.layout.SettingBar;
 
@@ -38,6 +38,14 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
 
     @BindView(R.id.sb_setting_cache)
     SettingBar mCleanCacheView;
+    @BindView(R.id.sb_setting_update)
+    SettingBar mUpdateView;
+    @BindView(R.id.sb_setting_agreement)
+    SettingBar mAgreementView;
+    @BindView(R.id.sb_setting_about_us)
+    SettingBar mAboutUsView;
+    @BindView(R.id.sb_setting_exit)
+    SettingBar mExitView;
 
     private SPCookieStore cookieStore;
 
@@ -48,7 +56,32 @@ public class SettingActivity extends MvpActivity implements LogoutContract.View 
 
     @Override
     protected void initView() {
+        if (DarkThemeUtils.isDarkTheme(getContext())) {
+            mCleanCacheView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mUpdateView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mAgreementView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mAboutUsView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mExitView.setBackground(getResources().getDrawable(R.drawable.selector_button_night));
+            mCleanCacheView.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mUpdateView.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mAgreementView.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mAboutUsView.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
+            mExitView.getLineView().setBackground(getResources().getDrawable(R.color.bg_color_night));
 
+
+        } else {
+            mCleanCacheView.setBackground(getResources().getDrawable(R.color.white75));
+            mUpdateView.setBackground(getResources().getDrawable(R.color.white75));
+            mAgreementView.setBackground(getResources().getDrawable(R.color.white75));
+            mAboutUsView.setBackground(getResources().getDrawable(R.color.white75));
+            mExitView.setBackground(getResources().getDrawable(R.color.white75));
+
+            mCleanCacheView.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mUpdateView.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mAgreementView.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mAboutUsView.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+            mExitView.getLineView().setBackground(getResources().getDrawable(R.color.colorLine));
+        }
     }
 
     @Override

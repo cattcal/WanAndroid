@@ -31,6 +31,7 @@
             <cn.hujw.widget.layout.SettingBar
                 android:id="@+id/sb_setting_update"
                 android:layout_width="match_parent"
+                app:bar_rightColor="?android:attr/textColorPrimary"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/colorBackground"
                 app:bar_leftColor="?android:attr/textColorPrimary"
@@ -38,6 +39,7 @@
                 app:bar_rightIcon="@drawable/ico_go_black"/>
 
             <cn.hujw.widget.layout.SettingBar
+                app:bar_rightColor="?android:attr/textColorPrimary"
                 android:background="?android:attr/colorBackground"
                 app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_cache"
@@ -69,6 +71,7 @@
 
 
             <cn.hujw.widget.layout.SettingBar
+                app:bar_rightColor="?android:attr/textColorPrimary"
                 android:background="?android:attr/colorBackground"
                 app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_agreement"
@@ -78,6 +81,7 @@
                 app:bar_rightIcon="@drawable/ico_go_black"/>
 
             <cn.hujw.widget.layout.SettingBar
+                app:bar_rightColor="?android:attr/textColorPrimary"
                 android:background="?android:attr/colorBackground"
                 app:bar_leftColor="?android:attr/textColorPrimary"
                 android:id="@+id/sb_setting_about_us"
@@ -101,6 +105,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="0px">
         <cn.hujw.widget.layout.SettingBar
+            app:bar_rightColor="?android:attr/textColorPrimary"
             android:background="?android:attr/colorBackground"
             android:id="@+id/sb_setting_exit"
             android:layout_width="match_parent"

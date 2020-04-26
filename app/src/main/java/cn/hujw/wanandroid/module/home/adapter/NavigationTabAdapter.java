@@ -13,6 +13,7 @@ import butterknife.BindView;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.common.MyRecyclerViewAdapter;
 import cn.hujw.wanandroid.module.home.mvp.modle.NavigationModel;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 
 /**
  * 描述：
@@ -56,13 +57,29 @@ public class NavigationTabAdapter extends MyRecyclerViewAdapter<NavigationModel>
         public void onBindView(int position) {
             mNameView.setText(getItem(position).getName());
 
-            if (position == selectPosition) {
-//                mTabLayout.setBackgroundColor(getColor(R.color.black35));
-                mTabView.setVisibility(View.VISIBLE);
-            } else {
-//                mTabLayout.setBackgroundColor(Color.TRANSPARENT);
-                mTabView.setVisibility(View.INVISIBLE);
+            if (DarkThemeUtils.isDarkTheme(getContext())){
+                if (position == selectPosition) {
+                    mTabLayout.setBackgroundColor(getColor(R.color.white75));
+                    mNameView.setTextColor(getColor(R.color.black35));
+                    mTabView.setVisibility(View.VISIBLE);
+                } else {
+                    mTabLayout.setBackgroundColor(Color.TRANSPARENT);
+                    mNameView.setTextColor(getColor(R.color.white75));
+                    mTabView.setVisibility(View.INVISIBLE);
+                }
+            }else{
+                if (position == selectPosition) {
+                    mTabLayout.setBackgroundColor(getColor(R.color.black35));
+                    mNameView.setTextColor(getColor(R.color.white75));
+                    mTabView.setVisibility(View.VISIBLE);
+                } else {
+                    mTabLayout.setBackgroundColor(Color.TRANSPARENT);
+                    mNameView.setTextColor(getColor(R.color.black35));
+                    mTabView.setVisibility(View.INVISIBLE);
+                }
             }
+
+
         }
     }
 }

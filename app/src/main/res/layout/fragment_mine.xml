@@ -208,7 +208,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/colorBackground"
-
                 app:bar_leftColor="?android:attr/textColorPrimary"
                 app:bar_leftIcon="@drawable/ico_mine_share"
                 app:bar_leftText="我的分享"

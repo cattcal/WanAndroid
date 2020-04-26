@@ -1,5 +1,7 @@
 package cn.hujw.wanandroid.module.home.adapter;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,6 +12,7 @@ import java.util.List;
 
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
+import cn.hujw.wanandroid.utils.DarkThemeUtils;
 
 /**
  * @author: hujw
@@ -19,14 +22,19 @@ import cn.hujw.wanandroid.module.home.mvp.modle.HotModel;
  */
 public class HotAdapter extends BaseQuickAdapter<HotModel, BaseViewHolder> {
 
+    private Context mContext;
 
-    public HotAdapter(@Nullable List<HotModel> data) {
+    public HotAdapter(Context context, @Nullable List<HotModel> data) {
         super(R.layout.item_system_children, data);
+
+        this.mContext = context;
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, HotModel item) {
-        helper.setText(R.id.item_tv_children_name, item.getName());
+        helper.setText(R.id.item_tv_children_name, item.getName())
+                .setBackgroundRes(R.id.item_tv_children_name, DarkThemeUtils.isDarkTheme(mContext) ? R.drawable.selector_button_night :
+                        R.drawable.selector_button);
     }
 
 }
