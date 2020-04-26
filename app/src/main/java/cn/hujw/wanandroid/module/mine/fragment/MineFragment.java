@@ -227,7 +227,8 @@ public class MineFragment extends MvpLazyFragment implements XCollapsingToolbarL
                 break;
             case R.id.iv_avatar_small:
                 if (UserManager.getInstance().doIfLogin(getAttachActivity())) {
-                    startActivity(LoginActivity.class);
+                    //选择头像
+                    chooseAvatar();
                 }
 
                 break;

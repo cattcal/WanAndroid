@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
     tools:context=".ui.activity.PhotoActivity">
 
     <cn.hujw.titlebar.library.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        app:titleColor="?android:attr/textColorPrimary"
         app:rightTitle="@string/photo_all"
         app:title="@string/photo_title" />
 
