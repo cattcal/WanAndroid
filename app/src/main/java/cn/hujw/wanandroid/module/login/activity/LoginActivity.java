@@ -28,11 +28,10 @@ import cn.hujw.wanandroid.mvp.MvpActivity;
 import cn.hujw.wanandroid.mvp.MvpInject;
 import cn.hujw.wanandroid.other.KeyboardWatcher;
 import cn.hujw.wanandroid.ui.activity.HomeActivity;
-import cn.hujw.wanandroid.utils.DarkThemeUtils;
 import cn.hujw.widget.view.ClearEditText;
 import cn.hujw.widget.view.PasswordEditText;
 import cn.hujw.widget.view.ScaleImageView;
-import cn.hujw.wxapi.WXEntryActivity;
+import cn.hujw.wanandroid.wxapi.WXEntryActivity;
 
 /**
  * 描述：登录界面

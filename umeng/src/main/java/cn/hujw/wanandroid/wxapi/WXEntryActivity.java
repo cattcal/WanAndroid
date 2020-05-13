@@ -1,4 +1,4 @@
-package cn.hujw.wxapi;
+package cn.hujw.wanandroid.wxapi;
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
