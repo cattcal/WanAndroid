@@ -7,7 +7,6 @@ import androidx.annotation.IdRes;
 /**
  *    author : hujw
  *    time   : 2019/09/15
- *    time   : 2019/09/15
  *    desc   : 点击事件意图
  */
 public interface ClickAction extends View.OnClickListener {

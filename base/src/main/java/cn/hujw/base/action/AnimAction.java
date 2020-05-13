@@ -5,7 +5,6 @@ import cn.hujw.base.R;
 
 /**
  *    author : hujw
- *    time   : 2019/09/15
  *    time   : 2019/09/21
  *    desc   : 动画样式
  */
