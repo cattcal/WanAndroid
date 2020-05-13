@@ -187,7 +187,7 @@ public final class LoginActivity extends MvpActivity implements LoginContract.Vi
         }
 
         ImageLoader.with(this)
-                .load(data.getIcon())
+                .load(data.getAvatar())
                 .circle()
                 .into(mLogoView);
 

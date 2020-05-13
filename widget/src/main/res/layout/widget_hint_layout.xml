@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:paddingTop="60dp"
     android:paddingBottom="150dp"
-    tools:context=".layout.HintLayout">
+    tools:context="cn.hujw.wanandroid.widget.HintLayout">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_hint_icon"
