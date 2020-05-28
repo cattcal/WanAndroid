@@ -3,7 +3,7 @@ package cn.hujw.wanandroid.module.mine.activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.allen.library.cookie.store.SPCookieStore;
+import cn.hujw.rxhttp.cookie.store.SPCookieStore;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

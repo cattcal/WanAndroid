@@ -1,7 +1,7 @@
 package cn.hujw.wanandroid.module.project.mvp.modle;
 
-import com.allen.library.interceptor.Transformer;
-import com.allen.library.observer.DataObserver;
+import cn.hujw.rxhttp.interceptor.Transformer;
+import cn.hujw.rxhttp.observer.DataObserver;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,7 +1,7 @@
 package cn.hujw.wanandroid.ui.mvp.model;
 
-import com.allen.library.interceptor.Transformer;
-import com.allen.library.observer.CommonObserver;
+import cn.hujw.rxhttp.interceptor.Transformer;
+import cn.hujw.rxhttp.observer.CommonObserver;
 
 import java.util.List;
 

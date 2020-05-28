@@ -1,6 +1,6 @@
 package cn.hujw.wanandroid.http;
 
-import com.allen.library.bean.BaseData;
+import cn.hujw.rxhttp.bean.BaseData;
 
 import java.util.List;
 

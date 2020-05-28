@@ -1,7 +1,7 @@
 package cn.hujw.wanandroid.module.login.mvp.model;
 
-import com.allen.library.interceptor.Transformer;
-import com.allen.library.observer.DataObserver;
+import cn.hujw.rxhttp.interceptor.Transformer;
+import cn.hujw.rxhttp.observer.DataObserver;
 
 import java.util.List;
 

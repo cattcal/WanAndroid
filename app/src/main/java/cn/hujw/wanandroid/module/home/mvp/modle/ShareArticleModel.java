@@ -1,7 +1,7 @@
 package cn.hujw.wanandroid.module.home.mvp.modle;
 
-import com.allen.library.interceptor.Transformer;
-import com.allen.library.observer.DataObserver;
+import cn.hujw.rxhttp.interceptor.Transformer;
+import cn.hujw.rxhttp.observer.DataObserver;
 
 import cn.hujw.wanandroid.http.ApiHelper;
 import cn.hujw.wanandroid.module.home.mvp.listener.ShareArticleOnListener;

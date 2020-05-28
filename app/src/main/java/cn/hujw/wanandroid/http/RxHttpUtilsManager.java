@@ -2,15 +2,13 @@ package cn.hujw.wanandroid.http;
 
 import android.app.Application;
 
-import com.allen.library.RxHttpUtils;
-import com.allen.library.config.OkHttpConfig;
-import com.allen.library.cookie.store.SPCookieStore;
-import com.allen.library.interfaces.BuildHeadersListener;
-import com.allen.library.manage.RxUrlManager;
+import cn.hujw.rxhttp.RxHttpUtils;
+import cn.hujw.rxhttp.config.OkHttpConfig;
+import cn.hujw.rxhttp.cookie.store.SPCookieStore;
+import cn.hujw.rxhttp.manage.RxUrlManager;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 
 import cn.hujw.wanandroid.other.AppConfig;
 import okhttp3.OkHttpClient;

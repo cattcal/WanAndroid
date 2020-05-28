@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.allen.library.cookie.store.SPCookieStore;
+import cn.hujw.rxhttp.cookie.store.SPCookieStore;
 import com.google.android.material.appbar.AppBarLayout;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -22,7 +22,6 @@ import cn.hujw.image.ImageLoader;
 import cn.hujw.wanandroid.R;
 import cn.hujw.wanandroid.eventbus.RefreshBus;
 import cn.hujw.wanandroid.helper.UserInfoManager;
-import cn.hujw.wanandroid.module.login.activity.LoginActivity;
 import cn.hujw.wanandroid.module.mine.activity.CollectActivity;
 import cn.hujw.wanandroid.module.mine.activity.CommonlyUsedWebSiteActivity;
 import cn.hujw.wanandroid.module.mine.activity.FuliActivity;

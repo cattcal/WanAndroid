@@ -1,6 +1,6 @@
 package cn.hujw.wanandroid.http;
 
-import com.allen.library.RxHttpUtils;
+import cn.hujw.rxhttp.RxHttpUtils;
 
 /**
  * 描述：Api帮助类

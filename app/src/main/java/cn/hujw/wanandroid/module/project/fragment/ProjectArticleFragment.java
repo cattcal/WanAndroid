@@ -3,12 +3,10 @@ package cn.hujw.wanandroid.module.project.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.allen.library.cookie.store.SPCookieStore;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -18,11 +16,8 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.hujw.base.BaseRecyclerViewAdapter;
 import cn.hujw.wanandroid.R;
-import cn.hujw.wanandroid.common.MyApplication;
 import cn.hujw.wanandroid.module.home.mvp.contract.ShareArticleContract;
-import cn.hujw.wanandroid.module.home.mvp.modle.ArticleModel;
 import cn.hujw.wanandroid.module.home.mvp.modle.ShareArticleModel;
 import cn.hujw.wanandroid.module.home.mvp.presenter.ShareArticlePresenter;
 import cn.hujw.wanandroid.module.login.activity.LoginActivity;
@@ -40,8 +35,6 @@ import cn.hujw.wanandroid.ui.mvp.model.UnCollectModel;
 import cn.hujw.wanandroid.ui.mvp.presenter.CollectPresenter;
 import cn.hujw.wanandroid.utils.SmartRefreshUtils;
 import cn.hujw.wanandroid.utils.UserManager;
-
-import static cn.hujw.wanandroid.common.Config.PAGE_START;
 
 /**
  * 描述：
